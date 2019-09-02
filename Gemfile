@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'pg'
 gem "rubycritic", require: false
 gem 'rubocop', require: false
+gem "figaro"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
