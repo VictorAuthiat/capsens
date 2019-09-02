@@ -1,3 +1,12 @@
 <div class="container">
   <h1 id="home">Home</h1>
+  <div class="infos">
+    <ul>
+      <% if current_user %>
+      <li><strong>Email</strong>: <em><%= current_user.email %></em></li>
+      <li><strong>IP</strong>: <em><%= current_user.ip %></em></li>
+      <li><strong>Last co</strong>: <em><%= current_user.last.strftime("%A, %-d %B %y:%d") %></em></li>
+      <% end %>
+    </ul>
+  </div>
 </div>
