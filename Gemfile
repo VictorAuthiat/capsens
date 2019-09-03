@@ -25,7 +25,8 @@ gem "rubycritic", require: false
 gem 'rubocop', require: false
 gem "figaro"
 gem 'devise'
-
+# TRANSACTIONS
+gem 'dry-transaction'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
