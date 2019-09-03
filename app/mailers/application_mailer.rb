@@ -1,4 +1,9 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
-  layout 'mailer'
+  default :to   => 'user@gmail.com',
+          :from => 'no-reply@capsens.eu'
+
+  def new_message(from, message)
+    @from, @message = from, message
+    mail(:subject => 'Testing letter_opener_web', :template_name => 'new_message')
+  end
 end
