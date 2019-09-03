@@ -311,6 +311,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   devise
+  dry-monads
   dry-transaction
   figaro
   jbuilder (~> 2.7)

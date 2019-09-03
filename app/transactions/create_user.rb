@@ -1,18 +1,20 @@
-require 'dry/transaction'
-
-class CreateUser
+class CreateUser < Transaction
   include Dry::Transaction
 
   step :validate
   step :create
+  step :email
 
   private
 
   def validate(input)
-    # returns Success(valid_data) or Failure(validation)
+    input.values.first.valid? ? Success(input) : Failure(input)
   end
 
   def create(input)
-    # returns Success(user)
+    input[:user].save
+  end
+
+  def email(input)
   end
 end
