@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'posts#new'
+  devise_for :users
+  root to: 'pages#home'
+
   post '/' => 'posts#create'
-  mount LetterOpenerWeb::Engine, at: "/inbox"
+  mount LetterOpenerWeb::Engine, at: '/inbox'
 end

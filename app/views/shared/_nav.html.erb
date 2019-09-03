@@ -1,0 +1,15 @@
+<div class="navbar nav">
+  <%= link_to "#", class: "navbar-brand" do %>
+    <%= image_tag "https://monacotech.mc/wp-content/uploads/2018/01/capsens.png", class: "avatar-square" %>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete, class: 'btn btn-warning' %>
+  <% else %>
+    <%= link_to "Log in", new_user_session_path, class: "btn btn-success btn-login" %>
+  <% end %>
+</div>
+
+
+
+
+

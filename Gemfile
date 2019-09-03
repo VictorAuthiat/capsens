@@ -25,6 +25,7 @@ gem 'rubycritic', require: false
 gem 'rubocop', require: false
 gem 'figaro'
 gem 'letter_opener', :group => :development
+gem 'devise'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
