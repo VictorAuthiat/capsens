@@ -2,10 +2,10 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
 
   def home
-    @ip = remote_ip()
-    if current_user
-      current_user.ip = @ip
-      current_user.save
+    if Rails.env.production?
+      @ip = current_user.last_sign_in_ip
+    else
+      @ip = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
     end
   end
 end
