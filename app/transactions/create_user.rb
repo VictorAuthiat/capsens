@@ -8,7 +8,7 @@ class CreateUser < Transaction
   private
 
   def validate(input)
-    input.values.first.valid? ? Success(input) : Failure(input)
+    input[:user].valid? ? Success(input) : Failure(input)
   end
 
   def create(input)

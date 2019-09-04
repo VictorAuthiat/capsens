@@ -8,15 +8,17 @@ class UsersController < Devise::RegistrationsController
   def create
     user = User.new(user_params)
     transaction = CreateUser.new.call(user: user)
-    if transaction.success?
-      flash[:alert] = "Good!"
-      redirect_to root_path
+    if transaction.failure?
+      errors = user.errors.full_messages.uniq
+      errors.each { |error| flash[:alert] = error }
+      redirect_to new_user_registration_path
     else
-      flash[:alert] = "Bad!"
-      render :new
+      redirect_to root_path
     end
   end
+
   private
+
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
