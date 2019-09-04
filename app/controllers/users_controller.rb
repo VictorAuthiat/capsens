@@ -10,6 +10,7 @@ class UsersController < Devise::RegistrationsController
     transaction = CreateUser.new.call(user: @user)
     if transaction.failure?
       flash[:errors] = resource.errors.full_messages.join(' . ')
+      byebug
       render :new
     else
       set_flash_message! :notice, :signed_up
