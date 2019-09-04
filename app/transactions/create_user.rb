@@ -15,6 +15,7 @@ class CreateUser < Transaction
     if input[:user].save
       Success(input)
     else
+      errors = user.errors.full_messages.uniq
       Failure(input)
     end
   end
