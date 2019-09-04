@@ -3,7 +3,8 @@ class CreateUser < Transaction
 
   step :validate
   step :create
-  step :email
+  tee :email
+  tee :login
 
   private
 
@@ -12,9 +13,17 @@ class CreateUser < Transaction
   end
 
   def create(input)
-    input[:user].save
+    if input[:user].save
+      Success(input)
+    else
+      Failure(input)
+    end
   end
 
   def email(input)
+    PostMailer.new_message("no-reply@capsens.eu", input[:user].email).deliver
+  end
+
+  def login
   end
 end

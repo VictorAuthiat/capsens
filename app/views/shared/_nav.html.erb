@@ -6,7 +6,7 @@
     <%= link_to "Log out", destroy_user_session_path, method: :delete, class: 'btn btn-warning' %>
   <% else %>
   <div class="d-flex justify-space-between">
-  <%= link_to "Sign up", new_user_path, class: "btn btn-primary btn-sign-up" %><br />
+  <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-sign-up" %><br />
 <hr>
     <%= link_to "Log in", new_user_session_path, class: "btn btn-success btn-login" %>
     </div>
