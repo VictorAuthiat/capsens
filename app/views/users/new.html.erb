@@ -14,5 +14,10 @@
       <% end %>
     </div>
   </div>
+  <div class="alert">
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>" style="color: grey"><%= value %></div>
+    <% end %>
+  </div>
 </div>
 
