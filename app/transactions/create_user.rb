@@ -22,7 +22,6 @@ class CreateUser < Transaction
 
   def email(input)
     PostMailer.new_message("no-reply@capsens.eu", input[:user].email).deliver_now
-    #PostMailer.send_email.deliver_now
   end
 
   def login

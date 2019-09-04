@@ -11,8 +11,12 @@ RSpec.describe CreateUser, type: :transactions do
       user.save
     end
     it 'need to receive email' do
-      expect(PostMailer).to receive(:new_message).with(user.email)
+      expect(PostMailer).to receive(:new_message)
+
       user.save
+    end
+    it 'sends an email' do
+      expect { subject.save }.to change { PostMailer.deliveries.count }.by(1)
     end
   end
 end
