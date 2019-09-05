@@ -8,13 +8,13 @@ class UsersController < Devise::RegistrationsController
   def create
     @user = User.new(user_params)
     transaction = CreateUser.new.call(user: @user)
-    if transaction.failure?
-      flash[:errors] = resource.errors.full_messages.join(' . ')
-      render :new
-    else
+    if transaction.success?
       set_flash_message! :notice, :signed_up
-      sign_up(:user, user)
+      sign_up(:user, @user)
       redirect_to root_path
+    else
+      flash[:error] = transaction.failure[:error]
+      render :new
     end
   end
 
