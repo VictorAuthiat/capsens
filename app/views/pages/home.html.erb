@@ -1,11 +1,13 @@
 <div class="container">
-  <h1 id="home">Home</h1>
   <div class="infos">
     <ul>
-      <% if current_user %>
-      <li><strong>Email</strong>: <em><%= current_user.email %></em></li>
-      <li><strong>IP</strong>: <em><%= @ip %></em></li>
-      <li><strong>Last co</strong>: <em><%= current_user.last_sign_in_at.strftime("%A, %-d %B %y:%d") %></em></li>
+      <% if user_signed_in? %>
+        <h1 id="home">Bonjour <%= current_user.email %></h1>
+        <li><strong>Email</strong>: <em><%= current_user.email %></em></li>
+        <li><strong>IP</strong>: <em><%= @ip %></em></li>
+        <li><strong>Last co</strong>: <em><%= current_user.last_sign_in_at.strftime("%A, %-d %B %y:%d") %></em></li>
+      <% else %>
+        <h1 id="home">Bonjour visiteur</h1>
       <% end %>
     </ul>
   </div>

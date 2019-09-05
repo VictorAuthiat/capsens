@@ -1,9 +1,11 @@
 .footer {
   background: #F4F4F4;
-  position: absolute;
-  bottom: 0;
+  position: relative;
   padding: 0px 50px;
   color: rgba(0,0,0,0.3);
-  bottom: 0;
   width: 100%;
+  left:0;
+}
+.infos{
+  height: 100vh;
 }
