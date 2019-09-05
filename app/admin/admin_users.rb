@@ -19,10 +19,19 @@ ActiveAdmin.register AdminUser do
   form do |f|
     f.inputs do
       f.input :email
-      f.input :password
-      f.input :password_confirmation
+      if f.object.new_record?
+        f.input :password
+      end
     end
     f.actions
+  end
+
+  show do
+    panel '' do
+      attributes_table_for resource do
+        row :email
+      end
+    end
   end
 
 end
