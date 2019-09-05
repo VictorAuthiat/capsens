@@ -6,7 +6,7 @@ RSpec.describe CreateUser, type: :transactions do
     let(:user) { create(:user) }
     it 'validate transaction' do
       user.email = nil
-      expect(user.save).to eq(false)
+      expect(subject.class).to eq(Dry::Monads::Result::Failure)
     end
     it 'need to receive email' do
       expect(PostMailer).to receive_message_chain(:new_message, :deliver_now)
