@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="form">
+      <h2>Sign up</h2>
+      <%= form_for @user do |f| %>
+        <div><%= f.label :email %></div>
+        <%= f.text_field :email %>
+        <div><%= f.label :password %></div>
+        <%= f.password_field :password, placeholder: "••••••" %>
+        <div><%= f.label :password_confirmation %></div>
+        <%= f.password_field :password_confirmation, placeholder: "••••••" %>
+        <hr>
+        <%= f.submit "Sign up", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="alert">
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>" style="color: grey"><%= value %></div>
+    <% end %>
+  </div>
+</div>
+

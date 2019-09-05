@@ -27,6 +27,9 @@ gem 'figaro'
 # gem 'letter_opener', :group => :development
 gem 'devise'
 
+# TRANSACTIONS
+gem 'dry-transaction'
+gem 'dry-monads'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
