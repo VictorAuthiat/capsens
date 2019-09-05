@@ -31,6 +31,8 @@ gem 'devise'
 # TRANSACTIONS
 gem 'dry-transaction'
 gem 'dry-monads'
+# Active Admin
+gem 'activeadmin'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
