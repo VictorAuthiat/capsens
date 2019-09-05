@@ -33,5 +33,4 @@ ActiveAdmin.register AdminUser do
       end
     end
   end
-
 end
