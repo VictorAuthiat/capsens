@@ -31,6 +31,9 @@ gem 'devise'
 # TRANSACTIONS
 gem 'dry-transaction'
 gem 'dry-monads'
+# Active Admin
+gem 'activeadmin', github: 'activeadmin/activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
