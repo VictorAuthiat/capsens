@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users' } do
-    get ':user/edit-profile' => 'devise/registration#edit', :as => :edit_user_profile
-  end
+  devise_for :users, controllers: { registrations: 'users' }
   root to: 'pages#home'
   get 'dashboard', to: 'pages#dashboard'
 
