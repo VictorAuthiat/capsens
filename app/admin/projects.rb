@@ -1,5 +1,5 @@
 ActiveAdmin.register Project do
-  permit_params :name, :content, :short_content, :thumb, :image, :purpose, :category_id
+  permit_params :name, :content, :short_content, :image, :purpose, :category_id
 
   index do
     id_column
