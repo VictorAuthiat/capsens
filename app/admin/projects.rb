@@ -20,6 +20,17 @@ ActiveAdmin.register Project do
   filter :created_at
   filter :purpose
 
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :content
+      f.input :short_content
+      f.input :thumb_picture, as: :file
+      f.input :land_picture, as: :file
+      f.input :purpose
+    end
+    f.actions
+  end
   show do
     panel '' do
       attributes_table_for resource do
