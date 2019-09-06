@@ -4,10 +4,10 @@ ActiveAdmin.register Project do
   index do
     id_column
     column :name
-    column :content
-    column :short_content
-    column :thumb_picture
-    column :land_picture
+    # column :content
+    # column :short_content
+    # column :thumb_picture
+    # column :land_picture
     column :purpose
     column :created_at
 
@@ -15,8 +15,6 @@ ActiveAdmin.register Project do
   end
 
   filter :name
-  filter :created_at
-  filter :short_content
   filter :created_at
   filter :purpose
 
@@ -35,10 +33,11 @@ ActiveAdmin.register Project do
     panel '' do
       attributes_table_for resource do
         row :name
-        row :created_at
         row :short_content
-        row :created_at
+        row :thumb_picture
+        row :land_pictures
         row :purpose
+        row :created_at
       end
     end
   end
