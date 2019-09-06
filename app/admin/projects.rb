@@ -37,7 +37,10 @@ ActiveAdmin.register Project do
       end
     end
     table_for project.contributions do
-
+      column(:user) { |contribution| User.find(contribution.user_id) }
+      column(:amount_in_cents) { |payment| payment.amount_in_cents }
+      column(:counterparts) { |contribution| Counterpart.find(contribution.counterpart_id) }
+      column 'Created at', :created_at
     end
   end
 end
