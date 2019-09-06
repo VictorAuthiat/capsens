@@ -1,21 +1,14 @@
-require 'image_processing/mini_magick'
-
 class ImageUploader < Shrine
-  plugin :processing # allows hooking into promoting
-  plugin :versions   # enable Shrine to handle a hash of files
-  plugin :delete_raw # delete processed files after uploading
+  require 'shrine'
+  require 'shrine/storage/file_system'
 
-  process(:store) do |io, context|
-    versions = { original: io } # retain original
+  Shrine.storages = {
+    cache: Shrine::Storage::FileSystem.new('public', prefix: 'uploads/cache'), # temporary
+    store: Shrine::Storage::FileSystem.new('public', prefix: 'uploads')       # permanent
+  }
 
-    io.download do |original|
-      pipeline = ImageProcessing::MiniMagick.source(original)
-
-      versions[:large]  = pipeline.resize_to_limit!(800, 800)
-      versions[:medium] = pipeline.resize_to_limit!(500, 500)
-      versions[:small]  = pipeline.resize_to_limit!(300, 300)
-    end
-
-    versions # return the hash of processed files
-  end
+  Shrine.plugin :activerecord # or :sequel
+  Shrine.plugin :cached_attachment_data # for retaining the cached file across form redisplays
+  Shrine.plugin :restore_cached_data # re-extract metadata when attaching a cached file
+  Shrine.plugin :rack_file # for non-Rails apps
 end
