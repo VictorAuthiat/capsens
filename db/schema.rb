@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_125210) do
+ActiveRecord::Schema.define(version: 2019_09_06_134152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,26 @@ ActiveRecord::Schema.define(version: 2019_09_06_125210) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "contributions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "counterpart_id", null: false
+    t.integer "amount_in_cents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["counterpart_id"], name: "index_contributions_on_counterpart_id"
+    t.index ["project_id"], name: "index_contributions_on_project_id"
+    t.index ["user_id"], name: "index_contributions_on_user_id"
+  end
+
+  create_table "counterparts", force: :cascade do |t|
+    t.integer "amount_in_cents"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_counterparts_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -66,5 +86,9 @@ ActiveRecord::Schema.define(version: 2019_09_06_125210) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "contributions", "counterparts"
+  add_foreign_key "contributions", "projects"
+  add_foreign_key "contributions", "users"
+  add_foreign_key "counterparts", "projects"
   add_foreign_key "projects", "categories"
 end
