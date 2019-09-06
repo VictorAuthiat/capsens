@@ -35,3 +35,4 @@ yarn-debug.log*
 .yarn-integrity
 /public/uploads
 /db/db.xml
+node_modules
