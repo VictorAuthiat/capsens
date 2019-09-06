@@ -20,6 +20,7 @@ ActiveAdmin.register Project do
       f.input :content
       f.input :image, as: :file
       f.input :purpose
+      f.input :category
     end
     f.actions
   end
@@ -34,6 +35,9 @@ ActiveAdmin.register Project do
         row :purpose
         row :created_at
       end
+    end
+    table_for project.contributions do
+
     end
   end
 end

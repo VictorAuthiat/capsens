@@ -19,6 +19,10 @@ RSpec.describe Project, type: :model do
       project.short_content = nil
       expect(project.save).to eq(true)
     end
+    it 'validate presence of picture' do
+      project.image = nil
+      expect(project.save).to eq(false)
+    end
     it 'base : succes' do
       expect(project.save).to eq(true)
     end

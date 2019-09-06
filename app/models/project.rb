@@ -6,4 +6,5 @@ class Project < ApplicationRecord
   validates :name, presence: true
   validates :purpose, presence: true
   validates :content, presence: true
+  validates :image, presence: true
 end
