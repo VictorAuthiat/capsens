@@ -14,10 +14,16 @@ class LandUploader < Shrine
   end
 
   process(:store) do |io, context|
+    versions = { original: io } # retain original
+
     io.download do |original|
       pipeline = ImageProcessing::MiniMagick.source(original)
 
-      pipeline.resize_to_limit!(300, 140)
+      versions[:large]  = pipeline.resize_to_limit!(800, 800)
+      versions[:medium] = pipeline.resize_to_limit!(500, 500)
+      versions[:small]  = pipeline.resize_to_limit!(300, 300)
     end
+
+    versions # return the hash of processed files
   end
 end

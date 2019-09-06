@@ -29,7 +29,7 @@ ActiveAdmin.register Project do
         row :name
         row :short_content
         row :image do |project|
-          image_tag project.image.url
+          image_tag project.image[:medium].url
         end
         row :purpose
         row :created_at
