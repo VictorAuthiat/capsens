@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
   belongs_to :category
   include LandUploader::Attachment.new(:image)
-  # include LandUploader::Attachment.new(:thumb)
+  has_many :counterparts, dependent: :destroy
+  has_many :contributions, dependent: :destroy
 end
