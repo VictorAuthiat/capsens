@@ -41,7 +41,7 @@
     <type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
     <type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
   </group>
-</datatypes><table x="365" y="185" name="users">
+</datatypes><table x="382" y="160" name="users">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -73,7 +73,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="981" y="222" name="categories">
+<table x="1132" y="167" name="categories">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -84,7 +84,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="234" y="187" name="admins">
+<table x="261" y="163" name="admins">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -104,7 +104,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="797" y="186" name="projects">
+<table x="970" y="148" name="projects">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -134,7 +134,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="544" y="227" name="contributions">
+<table x="562" y="113" name="contributions">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -149,20 +149,24 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="projects" row="id" />
 </row>
+<row name="counterpart_id" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="counterparts" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="542" y="86" name="counterparts">
+<table x="763" y="291" name="counterparts">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="amount" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="contribution_id" null="1" autoincrement="0">
+<row name="project_id" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="contributions" row="id" />
+<default>NULL</default><relation table="projects" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
