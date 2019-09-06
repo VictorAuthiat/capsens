@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :counterpart do
-    amount_in_cents { 1 }
-    project { nil }
+    project
+    amount_in_cents { rand(5000...10_000) }
   end
 end
