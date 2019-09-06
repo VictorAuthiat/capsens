@@ -4,10 +4,6 @@ ActiveAdmin.register Project do
   index do
     id_column
     column :name
-    # column :content
-    # column :short_content
-    # column :thumb_picture
-    # column :land_picture
     column :purpose
     column :created_at
 
@@ -23,7 +19,6 @@ ActiveAdmin.register Project do
       f.input :name
       f.input :content
       f.input :image, as: :file
-      f.input :thumb, as: :file
       f.input :purpose
     end
     f.actions
@@ -35,9 +30,6 @@ ActiveAdmin.register Project do
         row :short_content
         row :image do |project|
           image_tag project.image.url
-        end
-        row :thumb do |project|
-          image_tag project.thumb.url
         end
         row :purpose
         row :created_at
