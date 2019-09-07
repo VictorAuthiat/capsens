@@ -25,6 +25,17 @@ ActiveAdmin.register Project do
     f.actions
   end
   show do
+    contribution = project.contributions.map(&:amount_in_cents)
+    contributions_sum = contribution.sum
+    percentage = (contributions_sum * 100).fdiv(project.purpose)
+    first = contribution.min
+    last = contribution.max
+    div do
+      h4 'Current contributions: ' + contributions_sum.fdiv(100).to_s + ' $'
+      h4 'percentage of completeness: ' + percentage.round.to_s + '%'
+      h4 'Lower: ' + first.to_s
+      h4 'Higher: ' + last.to_s
+    end
     panel '' do
       attributes_table_for resource do
         row :name
@@ -36,11 +47,27 @@ ActiveAdmin.register Project do
         row :created_at
       end
     end
+    h1 'Contributions:'
     table_for project.contributions do
       column(:user) { |contribution| User.find(contribution.user_id) }
-      column(:amount_in_cents) { |payment| payment.amount_in_cents }
+      column(:amount_in_cents).map(&:amount_in_cents)
       column(:counterparts) { |contribution| Counterpart.find(contribution.counterpart_id) }
       column 'Created at', :created_at
+    end
+    h1 'Counterparts:'
+    table_for project.counterparts do |counterpart|
+      column(:name).map(&:name)
+      column(:amount_in_cents).map(&:amount_in_cents)
+      column(:stock).map(&:stock)
+      column do |counterpart|
+        link_to 'Edit', edit_admin_counterpart_path(counterpart.id)
+      end
+      column do |counterpart|
+        link_to 'delete', admin_counterpart_path(counterpart.id), method: :delete, data: {confirm: 'Are you sure?'}
+      end
+      column do |counterpart|
+        link_to 'new', new_admin_counterpart_path
+      end
     end
   end
 end
