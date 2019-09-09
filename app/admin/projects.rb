@@ -53,7 +53,7 @@ ActiveAdmin.register Project do
     h1 'Contributions:'
     table_for project.contributions do
       column(:user)
-      column(:amount_in_cents).pluck(:amount_in_cents)
+      column(:amount_in_cents)
       column(:counterpart)
       column 'Created at', :created_at
     end
