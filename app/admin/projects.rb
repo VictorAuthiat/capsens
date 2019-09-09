@@ -1,6 +1,9 @@
 ActiveAdmin.register Project do
   permit_params :name, :content, :short_content, :image, :purpose, :category_id
 
+  action_item :impersonate, only: :show do
+    link_to 'new counterpart', new_admin_counterpart_path
+  end
   index do
     id_column
     column :name
@@ -64,9 +67,6 @@ ActiveAdmin.register Project do
       end
       column do |counterpart|
         link_to 'delete', admin_counterpart_path(counterpart.id), method: :delete, data: {confirm: 'Are you sure?'}
-      end
-      column do |counterpart|
-        link_to 'new', new_admin_counterpart_path
       end
     end
   end
