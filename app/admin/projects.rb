@@ -1,24 +1,34 @@
 ActiveAdmin.register Project do
   permit_params :name, :content, :short_content, :image, :purpose, :category_id
-  
   action_item :check_state, only: :show do
     link_to 'check state', url_for(action: :check_state)
   end
-  
   member_action :check_state do
     transaction = ProjectCheck.new.call(project: resource)
     redirect_to admin_project_path(resource)
     if transaction.success?
-      flash[:success] = 'The state successfully has changed'
+      flash[:success] = "The state successfully has changed to: #{resource.aasm_state}"
     else
       flash[:error] = "The state can not change: #{resource.aasm_state}"
     end
   end
-  
-  action_item :impersonate, only: :show do
-    link_to 'new counterpart', new_admin_counterpart_path(project: project.id)
+
+  action_item :project_succeeded, only: :show do
+    link_to 'SUCCESS', url_for(action: :project_succeeded) if resource.aasm_state == 'ongoing'
   end
-  
+  member_action :project_succeeded do
+    transaction = ProjectSucceeded.new.call(project: resource)
+    redirect_to admin_project_path(resource)
+    if transaction.success?
+      flash[:success] = "Your project is a: #{resource.aasm_state}"
+    else
+      flash[:error] = 'Failure'
+    end
+  end
+
+  action_item :impersonate, only: :show do
+    link_to 'new counterpart', new_admin_counterpart_path(project: project.id) if resource.aasm_state != 'ongoing'
+  end
   index do
     id_column
     column :name

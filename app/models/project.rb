@@ -8,17 +8,25 @@ class Project < ApplicationRecord
   validates :purpose, presence: true
   validates :content, presence: true
   validates :image, presence: true
-  
+
   aasm do
     state :draft, initial: true
     state :upgoing
     state :ongoing
+    state :success
+    state :failure
 
     event :up do
       transitions from: :draft, to: :upgoing, guard: :upgoing_needed?
     end
     event :on do
       transitions from: :upgoing, to: :ongoing, guard: :ongoing_needed?
+    end
+    event :success do
+      transitions from: :ongoing, to: :success, guard: :success_needed?
+    end
+    event :failure do
+      transitions from: :ongoing, to: :failure, guard: :failure_needed?
     end
   end
   def self.state
@@ -29,5 +37,17 @@ class Project < ApplicationRecord
   end
   def ongoing_needed?
     category_id && contributions.any? ? true : false
+  end
+  def failure_needed?
+    contribution = contributions.map(&:amount_in_cents)
+    contributions_sum = contribution.sum
+    percentage = (contributions_sum * 100).fdiv(purpose)
+    percentage < 100
+  end
+  def succes_needed?
+    contribution = contributions.map(&:amount_in_cents)
+    contributions_sum = contribution.sum
+    percentage = (contributions_sum * 100).fdiv(purpose)
+    percentage >= 100
   end
 end
