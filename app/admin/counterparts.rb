@@ -1,10 +1,9 @@
 ActiveAdmin.register Counterpart do
   permit_params :project_id, :name, :amount_in_cents
   form do |f|
-    f.object.project_id = params[:project]
-    h4 "Project: #{Project.find(object.project_id).name.capitalize}"
+    h4 "Project: #{Project.find(params[:project]).name.capitalize}"
     f.inputs do
-      f.input :project_id, as: :hidden
+      f.input :project_id, input_html: { value: params[:project] }, as: :hidden
       f.input :name
       f.input :amount_in_cents
     end
