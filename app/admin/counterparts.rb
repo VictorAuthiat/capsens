@@ -14,7 +14,7 @@ ActiveAdmin.register Counterpart do
       attributes_table_for resource do
         row :name
         row :amount_in_cents
-        row 'project', Project.find(counterpart.project_id).name.capitalize
+        row :project
       end
     end
   end
