@@ -53,15 +53,15 @@ ActiveAdmin.register Project do
     h1 'Contributions:'
     table_for project.contributions do
       column(:user)
-      column(:amount_in_cents).pluck(&:amount_in_cents)
+      column(:amount_in_cents).pluck(:amount_in_cents)
       column(:counterpart)
       column 'Created at', :created_at
     end
     h1 'Counterparts:'
     table_for project.counterparts do |counterpart|
-      column(:name).pluck(&:name)
-      column(:amount_in_cents).pluck(&:amount_in_cents)
-      column(:stock).pluck(&:stock)
+      column(:name).pluck(:name)
+      column(:amount_in_cents).pluck(:amount_in_cents)
+      column(:stock).pluck(:stock)
       column do |counterpart|
         link_to 'Edit', edit_admin_counterpart_path(counterpart.id)
       end
