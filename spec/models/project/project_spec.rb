@@ -5,7 +5,7 @@ RSpec.describe Project, type: :model do
     let(:user) { create(:user, email: 'test-transaction@capsens.eu') }
     let(:category) { create(:category, name: 'bobotte') }
     let(:project) { create(:project, category_id: category.id, name: 'bobo-test-project') }
-    let(:counterpart) { create(:counterpart, project_id: project.id, name: "counterpart") }
+    let(:counterpart) { create(:counterpart, project_id: project.id, name: 'counterpart') }
     let(:contribution) { create(:contribution, project_id: project.id, counterpart_id: counterpart.id, user_id: user.id, amount_in_cents: 100)}
     it 'validate the presence of a name' do
       project.name = nil
@@ -25,7 +25,7 @@ RSpec.describe Project, type: :model do
       project.content = 'content'
       project.short_content = 'short_content'
       project.purpose = 10_000
-      project.image_data = 'https://img.lemde.fr/2019/04/22/0/191/1619/1079/688/0/60/0/e39da8d_2FIads9h8wB-0SwSgxVaVWsp.jpg'
+      project.image_data = '../../fixtures/sample_images/project/land_pictures/food1.jpeg'
       expect(project.upgoing_needed?).to eq(true)
     end
     it 'ongoing conditions:' do

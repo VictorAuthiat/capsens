@@ -10,39 +10,20 @@ class Project < ApplicationRecord
     state :upgoing
     state :ongoing
 
-
     event :up do
-      transitions from: :draft, to: :upgoing, if: :upgoing_needed?
-    end
-    event :upgoing_if_needed do
-      transitions from: :draft, to: :upgoing do
-        guard do
-          upgoing_needed?
-        end
-      end
-      transitions from: :draft, to: :upgoing
+      transitions from: :draft, to: :upgoing, guard: :upgoing_needed?
     end
     event :on do
-      transitions from: :upgoing, to: :ongoing, if: :ongoing_needed?
-    end
-    event :ongoing_if_needed do
-      transitions from: :upgoing, to: :ongoing do
-        guard do
-          ongoing_needed?
-        end
-      end
-      transitions from: :upgoing, to: :ongoing
-    end
-    event :failure do
-    end
-    event :success do
+      transitions from: :upgoing, to: :ongoing, guard: :ongoing_needed?
     end
   end
-
+  def self.state
+    Project.aasm.states_for_select
+  end
   def upgoing_needed?
-    self.name && self.content && self.short_content && self.image_data ? true : false
+    name && content && short_content && image_data && purpose ? true : false
   end
   def ongoing_needed?
-    self.category_id && self.contributions.any? ? true : false
+    category_id && contributions.any? ? true : false
   end
 end
