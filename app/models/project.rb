@@ -10,8 +10,7 @@ class Project < ApplicationRecord
     state :upgoing
     state :ongoing
 
-    event :draft do
-    end
+
     event :up do
       transitions from: :draft, to: :upgoing, if: :upgoing_needed?
     end
