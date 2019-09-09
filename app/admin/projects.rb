@@ -49,9 +49,9 @@ ActiveAdmin.register Project do
     end
     h1 'Contributions:'
     table_for project.contributions do
-      column(:user) { |contribution| User.find(contribution.user_id) }
-      column(:amount_in_cents).map(&:amount_in_cents)
-      column(:counterparts) { |contribution| Counterpart.find(contribution.counterpart_id) }
+      column(:user)
+      column(:amount_in_cents).pluck(&:amount_in_cents)
+      column(:counterpart)
       column 'Created at', :created_at
     end
     h1 'Counterparts:'
