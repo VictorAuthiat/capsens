@@ -41,7 +41,7 @@ ActiveAdmin.register User do
     f.actions
   end
 
-  show do |user|
+  show do
     panel '' do
       attributes_table_for resource do
         row :email

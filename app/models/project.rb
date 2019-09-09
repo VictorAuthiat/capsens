@@ -5,6 +5,10 @@ class Project < ApplicationRecord
   has_many :counterparts, dependent: :destroy
   has_many :contributions, dependent: :destroy
   validates :name, presence: true
+  validates :purpose, presence: true
+  validates :content, presence: true
+  validates :image, presence: true
+  
   aasm do
     state :draft, initial: true
     state :upgoing
