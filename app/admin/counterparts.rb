@@ -1,16 +1,22 @@
 ActiveAdmin.register Counterpart do
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  
+  permit_params :project_id, :name, :amount_in_cents
+  form do |f|
+    f.object.project_id = params[:project]
+    h4 "Project: #{Project.find(object.project_id).name.capitalize}"
+    f.inputs do
+      f.input :project_id, as: :hidden
+      f.input :name
+      f.input :amount_in_cents
+    end
+    f.actions
+  end
+  show do |counterpart|
+    panel '' do
+      attributes_table_for resource do
+        row :name
+        row :amount_in_cents
+        row 'project', Project.find(counterpart.project_id).name.capitalize
+      end
+    end
+  end
 end

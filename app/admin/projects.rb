@@ -2,7 +2,7 @@ ActiveAdmin.register Project do
   permit_params :name, :content, :short_content, :image, :purpose, :category_id
 
   action_item :impersonate, only: :show do
-    link_to 'new counterpart', new_admin_counterpart_path
+    link_to 'new counterpart', new_admin_counterpart_path(project: project.id)
   end
   index do
     id_column
