@@ -59,9 +59,9 @@ ActiveAdmin.register Project do
     end
     h1 'Counterparts:'
     table_for project.counterparts do |counterpart|
-      column(:name).map(&:name)
-      column(:amount_in_cents).map(&:amount_in_cents)
-      column(:stock).map(&:stock)
+      column(:name).pluck(&:name)
+      column(:amount_in_cents).pluck(&:amount_in_cents)
+      column(:stock).pluck(&:stock)
       column do |counterpart|
         link_to 'Edit', edit_admin_counterpart_path(counterpart.id)
       end
