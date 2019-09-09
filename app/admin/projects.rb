@@ -5,11 +5,11 @@ ActiveAdmin.register Project do
   end
   member_action :check_state do
     transaction = ProjectCheck.new.call(project: resource)
+    redirect_to admin_project_path(resource)
     if transaction.success?
+      flash[:success] = 'The state successfully has changed'
     else
-      show do
-        flash[:error] = transaction.failure[:error]
-      end
+      flash[:error] = "The state can not change: #{resource.aasm_state}"
     end
   end
   index do
