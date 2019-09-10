@@ -44,6 +44,7 @@ class Project < ApplicationRecord
     percentage = (contributions_sum * 100).fdiv(purpose)
     percentage < 100
   end
+
   def succes_needed?
     contribution = contributions.map(&:amount_in_cents)
     contributions_sum = contribution.sum

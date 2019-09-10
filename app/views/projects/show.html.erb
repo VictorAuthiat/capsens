@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="infos">
+    <div class="">
+      <%= image_tag @project.image[:large].url %>
+    </div>
+    <div class="">
+      <%= @project.name %>
+    </div>
+    <div class="">
+      <%= @project.content %>
+    </div>
+    <div class="">
+      <ul>Description:
+        <li><%= @project.short_content %></li>
+      </ul>
+    </div>
+    <div class="">
+      Purpose: <%= @project.purpose %> €
+    </div>
+  </div>
+</div>
