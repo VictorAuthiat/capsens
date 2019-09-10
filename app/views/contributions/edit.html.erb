@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="infos">
+    <%= form_for @contribution do |f| %>
+      <%= f.collection_select(:counterpart_id, @counterparts, :id, :amount_in_cents) %>
+      <br>
+      <%= f.submit 'Choose yours' %>
+    <% end %>
+  </div>
+</div>

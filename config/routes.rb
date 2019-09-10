@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :projects, only: %i[index show] do
     resources :contributions, only: %i[new create]
   end
+  resources :contributions, only: %i[edit update]
   resources :users, only: %i[new create]
   get 'mail', to: 'posts#new'
   post '/' => 'posts#create'

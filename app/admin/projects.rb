@@ -1,5 +1,6 @@
 ActiveAdmin.register Project do
-  permit_params :name, :content, :short_content, :image, :purpose, :category_id
+  permit_params :name, :content, :short_content, :image, :purpose, :category_id, counterparts_attributes: [:amount_in_cents, :name]
+
   action_item :check_state, only: :show do
     link_to 'check state', url_for(action: :check_state)
   end
@@ -47,9 +48,18 @@ ActiveAdmin.register Project do
     f.inputs do
       f.input :name
       f.input :content
+      f.input :short_content
       f.input :image, as: :file
       f.input :purpose
       f.input :category
+      if f.object.new_record?
+        f.has_many :counterparts, new_record: true, allow_destroy: false do |counterpart|
+          counterpart.inputs do
+            counterpart.input :amount_in_cents, input_html: { value: 0 }
+            counterpart.input :name, as: :string, input_html: { value: 'First Counterpart' }
+          end
+        end
+      end
     end
     f.actions
   end
@@ -62,17 +72,18 @@ ActiveAdmin.register Project do
       h4 'Current contributions: ' + contributions_sum.fdiv(100).to_s + ' $'
       h4 'Percentage of completeness: ' + percentage.round.to_s + '%'
       h3 'Contributions:'
-      h4 'Lower: ' + first.fdiv(100).to_s + '€'
-      h4 'Higher: ' + last.fdiv(100).to_s + '€'
+      h4 'Lower: ' + first.fdiv(100).to_s + '€' if first
+      h4 'Higher: ' + last.fdiv(100).to_s + '€' if last
     end
     panel '' do
       attributes_table_for resource do
         row :name
         row :short_content
-        row :image do |project|
-          image_tag project.image[:medium].url
+        row :image do
+          image_tag(resource.image[:medium].url) if resource.image[:medium].url
         end
         row :purpose
+        row :aasm_state
         row :created_at
       end
     end

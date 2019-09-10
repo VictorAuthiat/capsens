@@ -4,10 +4,11 @@ class Project < ApplicationRecord
   belongs_to :category
   has_many :counterparts, dependent: :destroy
   has_many :contributions, dependent: :destroy
+  accepts_nested_attributes_for :counterparts, :allow_destroy => true
   validates :name, presence: true
   validates :purpose, presence: true
   validates :content, presence: true
-  validates :image, presence: true
+  validates :image_data, presence: true
 
   aasm do
     state :draft, initial: true
