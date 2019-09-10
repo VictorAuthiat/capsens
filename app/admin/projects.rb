@@ -26,8 +26,8 @@ ActiveAdmin.register Project do
     end
   end
 
-  action_item :impersonate, only: :show do
-    link_to 'new counterpart', new_admin_counterpart_path(project: project.id) if resource.aasm_state != 'ongoing'
+  action_item :impersonate, only: :show, if: proc { resource.aasm_state != 'ongoing' } do
+    link_to 'new counterpart', new_admin_counterpart_path(project: project.id)
   end
   index do
     id_column
@@ -54,16 +54,16 @@ ActiveAdmin.register Project do
     f.actions
   end
   show do
-    contribution = project.contributions.map(&:amount_in_cents)
-    contributions_sum = contribution.sum
+    contributions_sum = project.contributions.sum(:amount_in_cents)
     percentage = (contributions_sum * 100).fdiv(project.purpose)
-    first = contribution.min
-    last = contribution.max
+    first = project.contributions.minimum(:amount_in_cents)
+    last = project.contributions.maximum(:amount_in_cents)
     div do
       h4 'Current contributions: ' + contributions_sum.fdiv(100).to_s + ' $'
-      h4 'percentage of completeness: ' + percentage.round.to_s + '%'
-      h4 'Lower: ' + first.to_s
-      h4 'Higher: ' + last.to_s
+      h4 'Percentage of completeness: ' + percentage.round.to_s + '%'
+      h3 'Contributions:'
+      h4 'Lower: ' + first.fdiv(100).to_s + '€'
+      h4 'Higher: ' + last.fdiv(100).to_s + '€'
     end
     panel '' do
       attributes_table_for resource do
