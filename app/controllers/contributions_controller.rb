@@ -6,7 +6,8 @@ class ContributionsController < ApplicationController
     @contribution = Contribution.new(contribution_params)
     @contribution.user_id = current_user.id
     if @contribution.save
-      redirect_to project_path(@contribution.project_id)
+      @project = Project.find(@contribution.project_id)
+      redirect_to project_path(@project)
     else
       render :new
     end
