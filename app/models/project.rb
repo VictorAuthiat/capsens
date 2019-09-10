@@ -33,20 +33,18 @@ class Project < ApplicationRecord
     Project.aasm.states_for_select
   end
   def upgoing_needed?
-    name && content && short_content && image_data && purpose ? true : false
+    name && content && short_content && image_data && purpose
   end
   def ongoing_needed?
-    category_id && contributions.any? ? true : false
+    category_id && contributions.any?
   end
   def failure_needed?
-    contribution = contributions.map(&:amount_in_cents)
-    contributions_sum = contribution.sum
+    contributions_sum = contributions.sum(:amount_in_cents)
     percentage = (contributions_sum * 100).fdiv(purpose)
     percentage < 100
   end
   def succes_needed?
-    contribution = contributions.map(&:amount_in_cents)
-    contributions_sum = contribution.sum
+    contributions_sum = contributions.sum(:amount_in_cents)
     percentage = (contributions_sum * 100).fdiv(purpose)
     percentage >= 100
   end
