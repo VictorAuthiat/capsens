@@ -4,5 +4,6 @@ class ProjectsController < ApplicationController
   end
   def show
     @project = Project.find(params[:id])
+    @contribution = Contribution.new
   end
 end

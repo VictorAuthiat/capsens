@@ -1,21 +1,38 @@
 <div class="container">
   <div class="infos">
     <div class="">
-      <%= image_tag @project.image[:large].url %>
-    </div>
-    <div class="">
-      <%= @project.name %>
-    </div>
-    <div class="">
-      <%= @project.content %>
-    </div>
-    <div class="">
-      <ul>Description:
-        <li><%= @project.short_content %></li>
-      </ul>
-    </div>
-    <div class="">
-      Purpose: <%= @project.purpose %> €
+      <div class="">
+        <%= image_tag @project.image[:large].url %>
+      </div>
+      <div class="">
+        <%= @project.name %>
+      </div>
+      <div class="">
+        <%= @project.content %>
+      </div>
+      <div class="">
+        <ul>Description:
+          <li><%= @project.short_content %></li>
+        </ul>
+      </div>
+      <div class="">
+        Purpose: <%= @project.purpose %> €
+      </div>
+      <div class="">
+        <%= form_for [@project, @contribution] do |f| %>
+          <div class="" style="background-color: lightgrey; margin:10px; border: 1px solid black; padding: 15px;">
+            <div class="">
+            <%= f.label 'Choose your amount' %>
+            <%=  f.text_field :amount_in_cents, placeholder: 'ex: 1000'  %> €
+            </div>
+            <div class="">
+            <%= f.label 'Choose a counterpart' %>
+            <%=  f.collection_select :counterpart_id, @project.counterparts, :id, :amount_in_cents %> €
+            </div>
+          </div>
+            <%= f.submit %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
