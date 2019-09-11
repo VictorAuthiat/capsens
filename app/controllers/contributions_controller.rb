@@ -1,15 +1,12 @@
 class ContributionsController < ApplicationController
   def create
     @contribution = Contribution.new(contribution_params)
-    @project = Project.find(params[:project_id].to_i)
-    @contribution.user_id = current_user.id
-    @contribution.project_id = @project.id
-    @counterpart = @project.counterparts.first
-    @contribution.counterpart_id = @counterpart.id
-    if @contribution.save
-      redirect_to edit_contribution_path(@contribution)
+    transaction = CreateContribution.new.call(contribution: @contribution, project_id: params[:project_id], user: current_user.id)
+    if transaction.success?
+      redirect_to edit_contribution_path(transaction.success[:contribution])
     else
-      redirect_to project_path(@project)
+      flash[:error] = transaction.failure[:error]
+      redirect_to project_path(transaction.failure[:project])
     end
   end
 
@@ -28,6 +25,6 @@ class ContributionsController < ApplicationController
   private
 
   def contribution_params
-    params.require(:contribution).permit(:amount_in_cents, :project_id, :user_id, :counterpart_id)
+    params.require(:contribution).permit(:amount_in_cents, :counterpart_id)
   end
 end

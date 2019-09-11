@@ -2,23 +2,24 @@
   <div class="infos">
     <div class="">
       <h4>Contributions:</h4>
-      <% @contributions.each do |contribution| %>
-        <% project = Project.find(contribution.project_id) %>
-        <% counterpart = Counterpart.find(contribution.counterpart_id) %>
+      <% @contributions.find_each do |contribution| %>
+        <% project = contribution.project %>
+        <% counterpart = contribution.counterpart %>
         <div class="" style="background-color: lightgrey; padding: 15px; margin:10px; border: 2px solid black">
-          <div class=""><%= contribution.amount_in_cents %></div>
-          <div class="">
+          <div class=""><%= contribution.amount_in_cents.fdiv(100).round %>€</div>
+          <div class="" style="background-color: white; width: 30%">
             <% if counterpart %>
               <ul>
+                Counterpart:
                 <li><%= counterpart.name %></li>
-                <li><%= counterpart.amount_in_cents %></li>
+                <li><%= counterpart.amount_in_cents.fdiv(100).round %>€</li>
               </ul>
             <% else %>
               <h4>No counterpart for this project</h4>
             <% end %>
           </div>
           <div class="">
-            <h5>Project's name: <%= link_to project.name, project_path(project) %></h5>
+            <h5>Project: <%= link_to project.name, project_path(project) %></h5>
           </div>
         </div>
       <% end %>

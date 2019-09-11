@@ -64,13 +64,11 @@ ActiveAdmin.register Project do
     f.actions
   end
   show do
-    contributions_sum = project.contributions.sum(:amount_in_cents)
-    percentage = (contributions_sum * 100).fdiv(project.purpose)
     first = project.contributions.minimum(:amount_in_cents)
     last = project.contributions.maximum(:amount_in_cents)
     div do
-      h4 'Current contributions: ' + contributions_sum.fdiv(100).to_s + ' $'
-      h4 'Percentage of completeness: ' + percentage.round.to_s + '%'
+      h4 'Current contributions: ' + project.contributions.sum(:amount_in_cents).fdiv(100).to_s + ' $'
+      h4 'Percentage of completeness: ' + project.percentage.round.to_s + '%'
       h3 'Contributions:'
       h4 'Lower: ' + first.fdiv(100).to_s + '€' if first
       h4 'Higher: ' + last.fdiv(100).to_s + '€' if last
@@ -100,7 +98,7 @@ ActiveAdmin.register Project do
       column(:amount_in_cents).pluck(:amount_in_cents)
       column(:stock).pluck(:stock)
       column do |counterpart|
-        link_to 'Edit', edit_admin_counterpart_path(counterpart.id)
+        link_to 'Edit', edit_admin_counterpart_path(counterpart.id, project: project)
       end
       column do |counterpart|
         link_to 'delete', admin_counterpart_path(counterpart.id), method: :delete, data: {confirm: 'Are you sure?'}

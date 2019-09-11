@@ -7,10 +7,8 @@
           <div class=""style="margin: 5px; width: 70%">
             <ul>Name: <%= link_to project.name, project_path(project) %>
               <li>State: <%= project.aasm_state %></li>
-              <% contribution = project.contributions.map(&:amount_in_cents) %>
-              <% contributions_sum = contribution.sum %>
-              <% percentage = (contributions_sum * 100).fdiv(project.purpose) %>
-              <li>Completion: <%= percentage %> %</li>
+
+              <li>Completion: <%= project.percentage %> %</li>
             </ul>
           </div>
           <div class="" style="margin:20px;"><%= image_tag project.image[:large].url %></div>

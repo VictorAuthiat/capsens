@@ -40,14 +40,13 @@ class Project < ApplicationRecord
     category_id && contributions.any?
   end
   def failure_needed?
-    contributions_sum = contributions.sum(:amount_in_cents)
-    percentage = (contributions_sum * 100).fdiv(purpose)
     percentage < 100
   end
 
   def succes_needed?
-    contributions_sum = contributions.sum(:amount_in_cents)
-    percentage = (contributions_sum * 100).fdiv(purpose)
     percentage >= 100
+  end
+  def percentage
+    (contributions.pluck(:amount_in_cents).sum * 100).fdiv(purpose)
   end
 end
