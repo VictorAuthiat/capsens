@@ -1,0 +1,30 @@
+class ContributionsController < ApplicationController
+  def create
+    @contribution = Contribution.new(contribution_params)
+    transaction = CreateContribution.new.call(contribution: @contribution, project_id: params[:project_id], user: current_user.id)
+    if transaction.success?
+      redirect_to edit_contribution_path(transaction.success[:contribution])
+    else
+      flash[:error] = transaction.failure[:error]
+      redirect_to project_path(transaction.failure[:project])
+    end
+  end
+
+  def edit
+    @contribution = Contribution.find(params[:id])
+    @project = Project.find(@contribution.project_id)
+    @counterparts = @project.counterparts.where('amount_in_cents < (?) AND amount_in_cents > (?)', @contribution.amount_in_cents, 0)
+  end
+
+  def update
+    @contribution = Contribution.find(params[:id])
+    @contribution.update(counterpart_id: params[:contribution][:counterpart_id])
+    redirect_to dashboard_path
+  end
+
+  private
+
+  def contribution_params
+    params.require(:contribution).permit(:amount_in_cents, :counterpart_id)
+  end
+end

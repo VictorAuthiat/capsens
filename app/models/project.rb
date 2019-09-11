@@ -4,10 +4,11 @@ class Project < ApplicationRecord
   belongs_to :category
   has_many :counterparts, dependent: :destroy
   has_many :contributions, dependent: :destroy
+  accepts_nested_attributes_for :counterparts, :allow_destroy => true
   validates :name, presence: true
   validates :purpose, presence: true
   validates :content, presence: true
-  validates :image, presence: true
+  validates :image_data, presence: true
 
   aasm do
     state :draft, initial: true
@@ -39,13 +40,13 @@ class Project < ApplicationRecord
     category_id && contributions.any?
   end
   def failure_needed?
-    contributions_sum = contributions.sum(:amount_in_cents)
-    percentage = (contributions_sum * 100).fdiv(purpose)
     percentage < 100
   end
+
   def succes_needed?
-    contributions_sum = contributions.sum(:amount_in_cents)
-    percentage = (contributions_sum * 100).fdiv(purpose)
     percentage >= 100
+  end
+  def percentage
+    (contributions.pluck(:amount_in_cents).sum * 100).fdiv(purpose)
   end
 end

@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="infos">
+    <div class="">
+      <!-- | nom dans un lien | status | % de completion | -->
+      <% @projects.each do |project| %>
+        <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid black;">
+          <div class=""style="margin: 5px; width: 70%">
+            <ul>Name: <%= link_to project.name, project_path(project) %>
+              <li>State: <%= project.aasm_state %></li>
+
+              <li>Completion: <%= project.percentage %> %</li>
+            </ul>
+          </div>
+          <div class="" style="margin:20px;"><%= image_tag project.image[:large].url %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

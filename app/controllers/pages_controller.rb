@@ -8,6 +8,8 @@ class PagesController < ApplicationController
       @ip = Net::HTTP.get(URI.parse('http://checkip.amazonaws.com/')).squish
     end
   end
+
   def dashboard
+    @contributions = current_user.contributions
   end
 end
