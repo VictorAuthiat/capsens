@@ -1,9 +1,8 @@
 class CreateUser < Transaction
-
   step :validate
   tee :create
+  tee :mango_pay_user_create
   tee :email
-  tee :login
 
   private
 
@@ -15,10 +14,20 @@ class CreateUser < Transaction
     input[:user].save
   end
 
-  def email(input)
-    PostMailer.new_message("no-reply@capsens.eu", input[:user].email).deliver_now
+  def mango_pay_user_create(input)
+    user = input[:user]
+    a = MangoPay::NaturalUser.create(
+      'FirstName': user.first_name,
+      'LastName': user.last_name,
+      'Birthday': user.birthday.to_i,
+      'Nationality': user.nationality,
+      'CountryOfResidence': user.country_of_residence,
+      'Email': user.email
+    )
+    a
   end
 
-  def login
+  def email(input)
+    PostMailer.new_message("no-reply@capsens.eu", input[:user].email).deliver_now
   end
 end
