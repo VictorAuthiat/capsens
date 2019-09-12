@@ -10,6 +10,10 @@ class ContributionsController < ApplicationController
     end
   end
 
+  def show
+    @contribution = Contribution.find(params[:id])
+  end
+
   def edit
     @contribution = Contribution.find(params[:id])
     @project = Project.find(@contribution.project_id)

@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="infos">
+    <h1>Bill:</h1>
+    <ul>
+      Project: <%= @contribution.project.name %>
+      <li><%= @contribution.created_at %></li>
+      <li><%= @contribution.aasm_state %></li>
+    </ul>
+    <%= link_to 'Choose my counterpart', edit_contribution_path(@contribution), class: "btn btn-primary" %>
+  </div>
+</div>
+
