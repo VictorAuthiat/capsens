@@ -26,7 +26,7 @@ gem 'rubycritic', require: false
 gem 'rubocop', require: false
 gem 'figaro'
 # gem 'letter_opener', :group => :development
-gem 'devise'
+gem "devise", ">= 4.7.1"
 
 # TRANSACTIONS
 gem 'dry-transaction'

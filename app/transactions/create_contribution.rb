@@ -31,7 +31,7 @@ class CreateContribution < Transaction
       'AuthorId': @user.mango_pay_id,
       'CreditedUserId': @user.mango_pay_id,
       'CreditedWalletId': @user.wallet_id,
-      'DebitedFunds': { Currency: 'EUR', Amount: 0 },
+      'DebitedFunds': { Currency: 'EUR', Amount: @contribution.amount_in_cents },
       'Fees': { Currency: 'EUR', Amount: 0 },
       'CardType': 'CB_VISA_MASTERCARD',
       'ReturnURL': 'http://localhost:3000/projects',
@@ -40,9 +40,10 @@ class CreateContribution < Transaction
     )
     # Mango nous renvoie le resultat (paiement en succes / echec)
     if card_web['Status'] == 'FAILED'
+      byebug
       Failure({ contribution: @contribution }.merge(error: 'mango_pay_error_card', project: @contribution.project_id))
     else
-      @contribution.update(state: 'payment_pending')
+      @contribution.update(aasm_state: 'payment_pending')
       Success(input.merge(redirect: response['RedirectURL']))
     end
   end
