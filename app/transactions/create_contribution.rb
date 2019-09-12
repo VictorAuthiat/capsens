@@ -2,7 +2,6 @@ class CreateContribution < Transaction
   step :validate
   tee :create
   step :test_card_web
-  step :transfer_to_contribution_wallet
 
   private
 
@@ -24,8 +23,10 @@ class CreateContribution < Transaction
   def create(input)
    @contribution.save
   end
-      # On envoie l'utilisateur sur la page Mango pour qu'il renseigne sa CB
+
+  # On envoie l'utilisateur sur la page Mango pour qu'il renseigne sa CB
   # On cree un PayIn
+
   def test_card_web(input)
     card_web = MangoPay::PayIn::Card::Web.create(
       'AuthorId': @user.mango_pay_id,
@@ -40,23 +41,10 @@ class CreateContribution < Transaction
     )
     # Mango nous renvoie le resultat (paiement en succes / echec)
     if card_web['Status'] == 'FAILED'
-      byebug
       Failure({ contribution: @contribution }.merge(error: 'mango_pay_error_card', project: @contribution.project_id))
     else
       @contribution.update(aasm_state: 'payment_pending')
       Success(input.merge(redirect: card_web['RedirectURL']))
     end
-  end
-
-  def transfer_to_contribution_wallet(input)
-    transfer = MangoPay::Transfer.create(
-      AuthorId: @user.mango_pay_id,
-      DebitedFunds: { Currency: 'EUR', Amount: @user.wallet_balance },
-      Fees: { Currency: 'EUR', Amount: 0 },
-      DebitedWalletID: @user.wallet_id,
-      CreditedWalletID: @contribution.wallet_id,
-      Tag: "User: #{@user.id}"
-    )
-    transfer ? Success(input) : Failure(error: 'mango_pay_error_transfer', project: @contribution.project_id)
   end
 end
