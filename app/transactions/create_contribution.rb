@@ -26,7 +26,7 @@ class CreateContribution < Transaction
   end
       # On envoie l'utilisateur sur la page Mango pour qu'il renseigne sa CB
   # On cree un PayIn
-  def test_card_web
+  def test_card_web(input)
     card_web = MangoPay::PayIn::Card::Web.create(
       'AuthorId': @user.mango_pay_id,
       'CreditedUserId': @user.mango_pay_id,
@@ -44,7 +44,7 @@ class CreateContribution < Transaction
       Failure({ contribution: @contribution }.merge(error: 'mango_pay_error_card', project: @contribution.project_id))
     else
       @contribution.update(aasm_state: 'payment_pending')
-      Success(input.merge(redirect: response['RedirectURL']))
+      Success(input.merge(redirect: card_web['RedirectURL']))
     end
   end
 
