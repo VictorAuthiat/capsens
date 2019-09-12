@@ -5,25 +5,50 @@
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="d-flex">
+          <div class="">
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </div>
+            <div class="field">
+              <%= f.label :first_name %><br />
+              <%= f.text_field :first_name, autofocus: true, autocomplete: "email" %>
+            </div>
+            <div class="field">
+              <%= f.label :last_name %><br />
+              <%= f.text_field :last_name, autofocus: true, autocomplete: "email" %>
+            </div>
+            <div class="field">
+              <%= f.label :birthday %><br />
+              <%= f.date_select :birthday, autofocus: true, autocomplete: "email" %>
+            </div>
+          </div>
+          <div class="">
+            <div class="field">
+              <%= f.label :country_of_residence %><br />
+              <%= f.email_field :country_of_residence, autofocus: true, autocomplete: "email" %>
+            </div>
+            <div class="field">
+              <%= f.label :nationality %><br />
+              <%= f.email_field :nationality, autofocus: true, autocomplete: "email" %>
+            </div>
 
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="field">
+              <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+              <%= f.password_field :password, autocomplete: "new-password" %>
+              <% if @minimum_password_length %>
+                <br />
+                <em><%= @minimum_password_length %> characters minimum</em>
+              <% end %>
+            </div>
+          </div>
         </div>
-
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
-        <div class="field">
-          <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-          <%= f.password_field :password, autocomplete: "new-password" %>
-          <% if @minimum_password_length %>
-            <br />
-            <em><%= @minimum_password_length %> characters minimum</em>
-          <% end %>
-        </div>
-
         <div class="field">
           <%= f.label :password_confirmation %><br />
           <%= f.password_field :password_confirmation, autocomplete: "new-password" %>

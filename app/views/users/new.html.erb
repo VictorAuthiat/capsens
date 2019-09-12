@@ -1,30 +1,38 @@
 <div class="container">
   <div class="row justify-content-center">
-    <div class="form">
+    <div class="form" >
       <h2>Sign up</h2>
       <%= form_for @user do |f| %>
-        <div><%= f.label :first_name %></div>
-        <%= f.text_field :first_name %>
-        <div><%= f.label :last_name %></div>
-        <%= f.text_field :last_name %>
-        <div><%= f.label :birthday %></div>
-        <%= f.date_select :birthday %>
-        <div><%= f.label :country_of_residence %></div>
-        <%= f.text_field :country_of_residence, placeholder: 'ex: FR' %>
-        <div><%= f.label :nationality %></div>
-        <%= f.text_field :nationality, placeholder: 'ex: FR' %>
-        <div><%= f.label :email %></div>
-        <%= f.text_field :email %>
-        <div><%= f.label :password %></div>
-        <%= f.password_field :password, placeholder: "••••••" %>
-        <div><%= f.label :password_confirmation %></div>
-        <%= f.password_field :password_confirmation, placeholder: "••••••" %>
+        <div class="d-flex">
+          <div class="" style="width: 30%">
+            <div><%= f.label :first_name %></div>
+            <%= f.text_field :first_name %>
+            <div><%= f.label :last_name %></div>
+            <%= f.text_field :last_name %>
+            <div><%= f.label :birthday %></div>
+            <%= f.date_select :birthday %>
+            </div>
+            <div class="">
+              <div><%= f.label :country_of_residence %></div>
+              <%= f.text_field :country_of_residence, placeholder: 'ex: FR' %>
+              <div><%= f.label :nationality %></div>
+              <%= f.text_field :nationality, placeholder: 'ex: FR' %>
+            </div>
+          <div class="">
+            <div><%= f.label :email %></div>
+            <%= f.text_field :email %>
+            <div><%= f.label :password %></div>
+            <%= f.password_field :password, placeholder: "••••••" %>
+            <div><%= f.label :password_confirmation %></div>
+            <%= f.password_field :password_confirmation, placeholder: "••••••" %>
+          </div>
+        </div>
         <hr>
-        <%= f.submit "Sign up", class: "btn btn-primary" %>
+        <%= f.button "Sign up", class: "btn btn-sign"  %>
       <% end %>
     </div>
   </div>
-  <div class="alert">
+  <div class="alert flash">
     <% flash.each do |key, value| %>
         <div class="alert alert-<%= key %>" style="color: grey"><%= value %></div>
     <% end %>
