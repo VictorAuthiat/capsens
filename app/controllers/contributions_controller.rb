@@ -3,7 +3,7 @@ class ContributionsController < ApplicationController
     @contribution = Contribution.new(contribution_params)
     transaction = CreateContribution.new.call(contribution: @contribution, project_id: params[:project_id], user: current_user.id)
     if transaction.success?
-      redirect_to edit_contribution_path(transaction.success[:contribution])
+      redirect_to transaction.success[:redirect]
     else
       flash[:error] = transaction.failure[:error]
       redirect_to project_path(transaction.failure[:project])

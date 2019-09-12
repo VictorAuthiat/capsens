@@ -21,12 +21,10 @@ class CreateContribution < Transaction
   end
 
   def create(input)
-   @contribution.save
+    @contribution.save
   end
 
-  # On envoie l'utilisateur sur la page Mango pour qu'il renseigne sa CB
   # On cree un PayIn
-
   def test_card_web(input)
     card_web = MangoPay::PayIn::Card::Web.create(
       'AuthorId': @user.mango_pay_id,
@@ -35,14 +33,18 @@ class CreateContribution < Transaction
       'DebitedFunds': { Currency: 'EUR', Amount: @contribution.amount_in_cents },
       'Fees': { Currency: 'EUR', Amount: 0 },
       'CardType': 'CB_VISA_MASTERCARD',
-      'ReturnURL': 'http://localhost:3000/projects',
+      'ReturnURL': "http://localhost:3000/projects",
       'Culture': (@user.country_of_residence == 'FR' ? 'FR' : 'EN'),
-      'Tag': 'PayIn/Card/Web'
+      'Tag': 'PayIn/Card/Web',
+      "SecureMode": "DEFAULT",
+      "TemplateURL": "http://www.a-url.com/3DS-redirect"
     )
+    # On envoie l'utilisateur sur la page Mango pour qu'il renseigne sa CB
     # Mango nous renvoie le resultat (paiement en succes / echec)
     if card_web['Status'] == 'FAILED'
       Failure({ contribution: @contribution }.merge(error: 'mango_pay_error_card', project: @contribution.project_id))
     else
+      byebug
       @contribution.update(aasm_state: 'payment_pending')
       Success(input.merge(redirect: card_web['RedirectURL']))
     end
