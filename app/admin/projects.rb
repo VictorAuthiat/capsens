@@ -10,7 +10,7 @@ ActiveAdmin.register Project do
   )
 
   action_item :check_state, only: :show do
-    link_to 'check state', url_for(action: :check_state)
+    link_to 'update state', url_for(action: :check_state)
   end
   member_action :check_state do
     transaction = ProjectCheck.new.call(project: resource)
@@ -36,9 +36,8 @@ ActiveAdmin.register Project do
       flash[:error] = 'Failure'
     end
   end
-  state = proc { resource.aasm_state != 'ongoing' }
-  action_item :impersonate, only: :show, if: state do
-    link_to 'new counterpart', new_admin_counterpart_path(proj: project.id)
+  action_item :impersonate, only: :show, if: proc { resource.aasm_state != 'ongoing' } do
+    link_to 'new counterpart', new_admin_counterpart_path(project: project.id)
   end
   index do
     id_column
@@ -104,6 +103,7 @@ ActiveAdmin.register Project do
       column(:amount_in_cents)
       column(:counterpart)
       column 'Created at', :created_at
+      column(:aasm_state)
     end
     h1 'Counterparts:'
     table_for project.counterparts do
@@ -116,7 +116,7 @@ ActiveAdmin.register Project do
         end
       end
       column do |counterpart|
-        link_to 'Delete', admin_counterpart_path(counterpart.id, proj: project.id), method: :delete, data: { confirm: 'Are you sure?' }
+        link_to 'Delete', admin_counterpart_path(counterpart.id, project: project.id), method: :delete, data: { confirm: 'Are you sure?' }
       end
     end
   end

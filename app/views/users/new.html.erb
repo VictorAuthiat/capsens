@@ -10,7 +10,7 @@
             <div><%= f.label :last_name %></div>
             <%= f.text_field :last_name %>
             <div><%= f.label :birthday %></div>
-            <%= f.date_select :birthday %>
+              <%= f.date_select :birthday, order: [:day, :month, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year, end_year: Date.today.year - 100 %>
             </div>
             <div class="">
               <div><%= f.label :country_of_residence %></div>

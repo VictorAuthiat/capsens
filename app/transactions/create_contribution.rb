@@ -1,27 +1,27 @@
 class CreateContribution < Transaction
+  tee :initialize_contribution
   step :validate
-  tee :create
   step :test_card_web
+  tee :create
 
   private
 
-  def validate(input)
+  def initialize_contribution(input)
     @contribution = input[:contribution]
+    @project = Project.find(input[:project_id].to_i)
+    @contribution.user_id = input[:user]
+    @contribution.project_id = @project.id
+    @counterpart = @project.counterparts.first
+    @contribution.counterpart_id = @counterpart.id
+    @user = @contribution.user
+  end
+
+  def validate(input)
     if @contribution.amount_in_cents.nil?
       Failure(input.merge(project: input[:project_id].to_i, error: "Amount can't be blank!"))
     else
-      @project = Project.find(input[:project_id].to_i)
-      @contribution.user_id = input[:user]
-      @contribution.project_id = @project.id
-      @counterpart = @project.counterparts.first
-      @contribution.counterpart_id = @counterpart.id
-      @user = @contribution.user
       Success(input)
     end
-  end
-
-  def create(input)
-    @contribution.save
   end
 
   # On cree un PayIn
@@ -44,9 +44,12 @@ class CreateContribution < Transaction
     if card_web['Status'] == 'FAILED'
       Failure({ contribution: @contribution }.merge(error: 'mango_pay_error_card', project: @contribution.project_id))
     else
-      byebug
       @contribution.update(aasm_state: 'payment_pending')
       Success(input.merge(redirect: card_web['RedirectURL']))
     end
+  end
+
+  def create(_input)
+    @contribution.save
   end
 end
