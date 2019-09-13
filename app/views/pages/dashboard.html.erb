@@ -1,25 +1,38 @@
 <div class="container">
   <div class="infos">
     <div class="">
-      <h4>Contributions:</h4>
+      <h4>My contributions:</h4>
       <% @contributions.find_each do |contribution| %>
         <% project = contribution.project %>
         <% counterpart = contribution.counterpart %>
-        <div class="" style="background-color: lightgrey; padding: 15px; margin:10px; border: 2px solid grey">
-          <div class=""><%= contribution.amount_in_cents.fdiv(100).round %>€</div>
-          <div class="" style="background-color: white; width: 30%">
-            <% if counterpart %>
-              <ul>
-                Counterpart:
-                <li><%= counterpart.name %></li>
-                <li><%= counterpart.amount_in_cents.fdiv(100).round %>€</li>
-              </ul>
-            <% else %>
-              <h4>No counterpart for this project</h4>
-            <% end %>
+        <div class="d-flex justify-content-between" style="background-color: lightgrey; padding: 15px; margin:10px; border: 2px solid grey">
+          <div class="">
+            <div class=""><%= contribution.amount_in_cents.fdiv(100).round %>€</div>
+            <div class="" style="background-color: white; width: 100%">
+              <% if counterpart %>
+                <ul>
+                  Counterpart:
+                  <li>Name: <%= counterpart.name %></li>
+                  <li>reward: <%= counterpart.amount_in_cents.fdiv(100).round %>€</li>
+                </ul>
+              <% else %>
+                <h4>No counterpart for this project</h4>
+              <% end %>
+            </div>
+            <div class="">
+              <h5>Project: <%= link_to project.name, project_path(project) %></h5>
+            </div>
           </div>
           <div class="">
-            <h5>Project: <%= link_to project.name, project_path(project) %></h5>
+            <% if contribution.aasm_state == 'paid' %>
+              <span style="background-color: lightgreen; padding: 5px;color: white;border-radius: 5px"><%= contribution.aasm_state %></span>
+            <% elsif contribution.aasm_state == 'payment_pending' %>
+              <span style="background-color: orange; padding: 5px;color: red;border-radius: 5px"><%= contribution.aasm_state %></span>
+            <% elsif contribution.aasm_state == 'canceled' %>
+              <span style="background-color: red; padding: 5px;color: white;border-radius: 5px"><%= contribution.aasm_state %></span>
+            <% else %>
+              <span style="background-color: yellow; padding: 5px;color: grey;border-radius: 5px"><%= contribution.aasm_state %></span>
+            <% end %>
           </div>
         </div>
       <% end %>

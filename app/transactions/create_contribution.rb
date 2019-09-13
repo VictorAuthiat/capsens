@@ -30,7 +30,7 @@ class CreateContribution < Transaction
   end
 
   def callback_url(_input)
-    @callback_url = 'http://localhost:3000' + Rails.application.routes.url_helpers.payment_path
+    @callback_url = Rails.application.routes.url_helpers.payment_url
   end
   # On cree un PayIn
   def test_card_web(input)

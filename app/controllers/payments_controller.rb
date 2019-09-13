@@ -11,4 +11,3 @@ class PaymentsController < ApplicationController
     end
   end
 end
-# rediriger vers la page de facture
