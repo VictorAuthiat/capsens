@@ -66,10 +66,8 @@ class Project < ApplicationRecord
 
   def percentage
     contribution_sum = (sum * 100).fdiv(purpose).round
-    if contribution_sum > 100
-      update(aasm_state: 'success')
-      contribution_sum = 100
-    end
+    contribution_sum = 100 if contribution_sum > 100
+    ProjectPercentage.new.call(project: self, contribution_sum: contribution_sum)
     contribution_sum
   end
 end
