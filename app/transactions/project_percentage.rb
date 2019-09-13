@@ -1,17 +1,11 @@
 class ProjectPercentage < Transaction
-  step :validate
+  tee :validate
 
   private
 
   def validate(input)
     @project = input[:project]
     @contribution_sum = input[:contribution_sum]
-    if @contribution_sum >= 100
-      @contribution_sum = 100
-      @project.update(aasm_state: 'success')
-      Success(input)
-    else
-      Failure(input)
-    end
+    @project.update(aasm_state: 'success') if @contribution_sum >= 100
   end
 end
