@@ -42,11 +42,17 @@ class Project < ApplicationRecord
   def failure_needed?
     percentage < 100
   end
-
+  def sum
+    contributions.pluck(:amount_in_cents).sum
+  end
   def succes_needed?
     percentage >= 100
   end
   def percentage
-    (contributions.pluck(:amount_in_cents).sum * 100).fdiv(purpose)
+    a = (sum * 100).fdiv(purpose).round
+    if a > 100
+      update(aasm_state: 'success')
+    end
+    a
   end
 end

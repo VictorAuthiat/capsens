@@ -1,17 +1,33 @@
 <div class="container">
   <div class="infos">
     <div class="">
-      <!-- | nom dans un lien | status | % de completion | -->
       <% @projects.each do |project| %>
-        <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid grey;">
-          <div class=""style="margin: 5px; width: 70%">
-            <ul>Name: <%= link_to project.name, project_path(project) %>
-              <li>State: <%= project.aasm_state %></li>
+        <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid grey; border-radius: 7px 0px 0px 7px;">
+          <div class="d-flex justify-content-between"style="border-radius: 7px 0px 0px 7px;margin: 5px; background-color: white; width: 70%">
+            <div class="">
+              <ul><strong><%= link_to project.name, project_path(project) %></strong>
+                <li>Goal: <%= project.purpose %>€</li>
+                <li>Sum of donations: <%= project.sum %>€</li>
 
-              <li>Completion: <%= project.percentage %> %</li>
-            </ul>
+              </ul>
+            </div>
+            <div class="" style="width: 30%; margin:10px;">
+              <div style="width: 100%; background-color: grey;border-radius: 15px;">
+                  <div class=""style="background-color: green;border-radius: 15px;width: <%= project.percentage.to_i %>%; color: white; margin:2px;"><%= project.percentage %>%</div>
+                </div>
+            </div>
+            <div class="" style="margin: 5px">
+              <% if project.aasm_state == 'success' %>
+                <span style="background-color: lightgreen;color:white; padding: 5px; border-radius: 5px;"><%= project.aasm_state %></span>
+              <% elsif project.aasm_state == 'failure' %>
+                <span style="background-color: red;color:white; padding: 5px; border-radius: 5px;"><%= project.aasm_state %></span>
+              <% else %>
+                <span style="background-color: orange;color:white; padding: 5px; border-radius: 5px;"><%= project.aasm_state %></span>
+              <% end %>
+            </div>
           </div>
-          <div class="" style="margin:20px;"><%= image_tag project.image[:large].url %></div>
+          <div class="" style="margin:20px;"><%= image_tag project.image[:large].url %>
+          </div>
         </div>
       <% end %>
     </div>
