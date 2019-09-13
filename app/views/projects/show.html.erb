@@ -1,41 +1,72 @@
-<div class="container">
-  <div class="infos">
-    <div class="">
-      <div class="">
-        <%= image_tag @project.image[:large].url %>
-      </div>
-      <div class="">
-        <%= @project.name %>
-      </div>
-      <div class="">
-        <%= @project.content %>
-      </div>
-      <div class="">
-        <ul>Description:
-          <li><%= @project.short_content %></li>
-        </ul>
-      </div>
-      <div class="">
-        Purpose: <%= @project.purpose %> €
-      </div>
-      <div class="">
-        <%= form_for [@project, @contribution] do |f| %>
-          <div class="" style="background-color: lightgrey; margin:10px; border: 2px solid grey; padding: 15px;">
-            <div class="">
-            <%= f.label 'Choose your amount' %>
-            <%=  f.text_field :amount_in_cents, placeholder: 'ex: 1000'  %> €
-            </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <%= f.submit 'Contribute'%>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <% if flash[:error] %>
-      <div class="flash">
-        <span><%= flash[:error] %></span>
-      </div>
+<div class="d-flex justify-content-center project-show">
+  <div class="card-trip-show">
+    <%= image_tag @project.image[:large].url %>
+  </div>
+  <div class="" style="margin:20px;">
+    <strong style="font-size: 20px"><%= @project.name %></strong>
+    <p><%= @project.short_content %></p>
+    <div class="state">
+    <% if @project.aasm_state == 'success' %>
+      <span class="<%= @project.state_badge %>"><%= @project.aasm_state %></span>
+    <% elsif @project.aasm_state == 'failure' %>
+      <span class="<%= @project.state_badge %>"><%= @project.aasm_state %></span>
+    <% else %>
+      <span class="<%= @project.state_badge %>"><%= @project.aasm_state %></span>
     <% end %>
   </div>
+  </div>
 </div>
+<div class="container">
+  <div class="d-flex justify-content-between" style="padding: 40px;">
+    <div class="" style="width: 50%">
+      <h3 style="color: #2d2c21">Description</h3>
+      <p><%= @project.content %></p>
+    </div>
+    <div class="">
+      <h3 style="color: #2d2c21">Counterparties</h3>
+      <% @project.counterparts.each do |c| %>
+        <div class="">
+          <%= c.name %>
+          <%= c.amount_in_cents.fdiv(100).round %>€
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="project-show d-flex justify-content-between">
+  <div class="">
+    <div class="">
+      <strong>Goal:</strong> <%= @project.purpose %> €
+    </div>
+    <div class="">
+     <strong>Sum of donations:</strong> <%= @project.sum %>€
+    </div>
+    <hr>
+    <div class="progress-bar-project"style="width: 100%">
+      <div class="progress-bar-back">
+        <div class="progress-bar-front"style="width: <%= @project.percentage.to_i %>%;"><%= @project.percentage %>%
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="">
+  <%= form_for [@project, @contribution] do |f| %>
+    <div class="" style=" margin:10px; border: 2px solid grey; padding: 15px;">
+      <div class="">
+        <%= f.label 'Choose your amount' %>
+        <%=  f.text_field :amount_in_cents, placeholder: 'ex: 1000'  %> €
+      </div>
+    </div>
+    <div class="d-flex justify-content-center" style="margin:30px;">
+      <%= f.submit 'Contribute'%>
+    </div>
+  <% end %>
+</div>
+</div>
+
+<% if flash[:error] %>
+  <div class="flash">
+    <span><%= flash[:error] %></span>
+  </div>
+<% end %>
+

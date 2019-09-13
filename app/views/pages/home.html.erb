@@ -6,8 +6,6 @@
         <li><strong>Email</strong>: <em><%= current_user.email %></em></li>
         <li><strong>IP</strong>: <em><%= @ip %></em></li>
         <li><strong>Last co</strong>: <em><%= current_user.last_sign_in_at.strftime("%A, %-d %B %y:%d") %></em></li>
-        <%= link_to 'ADMIN', '/admin', class: "btn btn-danger" %>
-        <%= link_to 'PROJECTS', '/projects', class: "btn btn-primary" %>
       <% else %>
         <h1 id="home">Bonjour visiteur</h1>
       <% end %>

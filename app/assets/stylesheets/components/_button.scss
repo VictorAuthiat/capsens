@@ -8,3 +8,35 @@
 .btn-sign{
   background-color:white;
 }
+.btn-projects{
+  color: #4A4A4A;
+  border: 1px solid #4A4A4A;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  margin:3px;
+}
+.btn-projects:hover {
+  opacity: 1;
+}
+.btn-red{
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #D53855;
+  transition: background 0.3s ease;
+}
+.btn-red:hover {
+  background: #e05777;
+  color: white;
+}
+.btn-logout{
+  color: black!important;
+  border: 1px solid #4A4A4A;
+  padding: 8px 24px;
+  border-radius: 20px;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}

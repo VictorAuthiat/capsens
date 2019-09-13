@@ -23,15 +23,18 @@
   margin:20px;
 }
 .progress-bar-project{
-  width: 30%; margin:10px;
+  width: 30%;
+  margin:10px;
 }
 .progress-bar-back{
+    border-radius:15px;
+  border:2px solid lightgreen;
   width: 100%;
-  background-color: grey;
+  background-color: white;
   border-radius: 15px;
 }
 .progress-bar-front{
-  background-color: green;
+  background-color: lightgreen;
   border-radius: 15px;
   color: white; margin:2px;
   text-align: center;

@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :contributions, only: %i[new create]
   end
   get 'payment', to: 'payments#payment'
+  get 'success', to: 'projects#success'
+  get 'upcoming', to: 'projects#upcoming'
+  get 'ongoing', to: 'projects#ongoing'
   resources :contributions, only: %i[edit update]
   resources :users, only: %i[new create]
   get 'mail', to: 'posts#new'

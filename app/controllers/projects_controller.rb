@@ -8,4 +8,19 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @contribution = Contribution.new
   end
+
+  def success
+    @q = Project.all.where(aasm_state: %w[success]).ransack(params[:q])
+    @projects = @q.result
+  end
+
+  def upcoming
+    @q = Project.all.where(aasm_state: %w[upgoing]).ransack(params[:q])
+    @projects = @q.result
+  end
+
+  def ongoing
+    @q = Project.all.where(aasm_state: %w[ongoing]).ransack(params[:q])
+    @projects = @q.result
+  end
 end
