@@ -1,0 +1,25 @@
+.create{
+  background-color: yellow;
+  color: grey;
+  padding: 5px;
+  border-radius: 5px;
+}
+.pending{
+  background-color: orange;
+  color: red;
+  padding: 5px;
+  border-radius: 5px;
+}
+.paid{
+  background-color: lightgreen;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+}
+
+.canceled{
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}

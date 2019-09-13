@@ -25,13 +25,13 @@
           </div>
           <div class="">
             <% if contribution.aasm_state == 'paid' %>
-              <span style="background-color: lightgreen; padding: 5px;color: white;border-radius: 5px"><%= contribution.aasm_state %></span>
+              <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
             <% elsif contribution.aasm_state == 'payment_pending' %>
-              <span style="background-color: orange; padding: 5px;color: red;border-radius: 5px"><%= contribution.aasm_state %></span>
+              <span class="<%= contribution.state_badge %>" =""><%= contribution.aasm_state %></span>
             <% elsif contribution.aasm_state == 'canceled' %>
-              <span style="background-color: red; padding: 5px;color: white;border-radius: 5px"><%= contribution.aasm_state %></span>
+              <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
             <% else %>
-              <span style="background-color: yellow; padding: 5px;color: grey;border-radius: 5px"><%= contribution.aasm_state %></span>
+              <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
             <% end %>
           </div>
         </div>

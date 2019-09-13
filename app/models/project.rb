@@ -54,9 +54,22 @@ class Project < ApplicationRecord
     percentage >= 100
   end
 
+  def state_badge
+    if aasm_state == 'success'
+      'success'
+    elsif aasm_state == 'failure'
+      'failure'
+    else
+      'up'
+    end
+  end
+
   def percentage
     contribution_sum = (sum * 100).fdiv(purpose).round
-    update(aasm_state: 'success') if contribution_sum > 100
+    if contribution_sum > 100
+      update(aasm_state: 'success')
+      contribution_sum = 100
+    end
     contribution_sum
   end
 end

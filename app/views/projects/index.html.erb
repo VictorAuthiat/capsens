@@ -8,25 +8,25 @@
               <ul><strong><%= link_to project.name, project_path(project) %></strong>
                 <li>Goal: <%= project.purpose %>€</li>
                 <li>Sum of donations: <%= project.sum %>€</li>
-
               </ul>
             </div>
-            <div class="" style="width: 30%; margin:10px;">
-              <div style="width: 100%; background-color: grey;border-radius: 15px;">
-                  <div class=""style="background-color: green;border-radius: 15px;width: <%= project.percentage.to_i %>%; color: white; margin:2px;"><%= project.percentage %>%</div>
+            <div class="progress-bar-project">
+              <div class="progress-bar-back">
+                <div class="progress-bar-front"style="width: <%= project.percentage.to_i %>%;"><%= project.percentage %>%
                 </div>
+              </div>
             </div>
-            <div class="" style="margin: 5px">
+            <div class="state">
               <% if project.aasm_state == 'success' %>
-                <span style="background-color: lightgreen;color:white; padding: 5px; border-radius: 5px;"><%= project.aasm_state %></span>
+                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
               <% elsif project.aasm_state == 'failure' %>
-                <span style="background-color: red;color:white; padding: 5px; border-radius: 5px;"><%= project.aasm_state %></span>
+                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
               <% else %>
-                <span style="background-color: orange;color:white; padding: 5px; border-radius: 5px;"><%= project.aasm_state %></span>
+                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
               <% end %>
             </div>
           </div>
-          <div class="" style="margin:20px;"><%= image_tag project.image[:large].url %>
+          <div class="image-project"><%= image_tag project.image[:large].url %>
           </div>
         </div>
       <% end %>
