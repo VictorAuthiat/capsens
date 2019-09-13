@@ -36,7 +36,7 @@ ActiveAdmin.register Project do
       flash[:error] = 'Failure'
     end
   end
-  action_item :impersonate, only: :show, if: proc { resource.aasm_state != 'ongoing' } do
+  action_item :new_counterpart, only: :show, if: proc { resource.aasm_state != 'ongoing' } do
     link_to 'new counterpart', new_admin_counterpart_path(project: project.id)
   end
   index do
