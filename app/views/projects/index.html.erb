@@ -1,5 +1,15 @@
 <div class="container">
   <div class="infos">
+    <div class="" style="margin-top:30px">
+      <%= search_form_for @q do |f| %>
+        <%= f.label :name_cont %>
+        <%= f.search_field :name_cont %>
+        <%= f.submit 'Search a project', class: "btn btn-primary" %>
+      <% end %>
+      <%= sort_link(@q, :name) do %>
+        <strong>Sort by Name</strong>
+      <% end %>
+    </div>
     <div class="">
       <% @projects.each do |project| %>
         <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid grey; border-radius: 7px 0px 0px 7px;">
