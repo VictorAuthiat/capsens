@@ -14,13 +14,7 @@
             Sum of donations: <%= project.sum %>€
           </div>
             <div class="state card-trip-state">
-              <% if project.aasm_state == 'success' %>
-                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
-              <% elsif project.aasm_state == 'failure' %>
-                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
-              <% else %>
-                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
-              <% end %>
+              <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
             </div>
           </div>
           <div class="progress-bar-project">
