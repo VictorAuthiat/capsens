@@ -17,6 +17,22 @@
 <div id="container-dashboard" class="container d-none">
   <div id="projects">
     <h4>My projects</h4>
+    <% current_user.user_projects.each do |project| %>
+      <div class="">
+        <ul>
+          <%= project[0].name %>
+          <div class="">contributions:</div>
+
+          <% project[1].each do |contribution| %>
+            <% if contribution.aasm_state == 'paid' %>
+              <li>
+                <%= contribution.amount_in_cents.fdiv(100).round %>€
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+     </div>
+    <% end %>
   </div>
     <div id="contributions" style="margin: 100px">
       <h4>My contributions</h4>

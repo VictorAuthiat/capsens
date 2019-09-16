@@ -16,7 +16,11 @@ class User < ApplicationRecord
     paid_contributions.pluck(:amount_in_cents).sum.fdiv(100).round
   end
 
+  def user_projects
+    contributions.all.group_by(&:project)
+  end
+
   def projects_count
-    contributions.all.group_by(&:project).count
+    user_projects.count
   end
 end
