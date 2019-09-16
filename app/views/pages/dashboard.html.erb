@@ -62,15 +62,7 @@
             </div>
           </div>
           <div class="">
-            <% if contribution.aasm_state == 'paid' %>
-              <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
-            <% elsif contribution.aasm_state == 'payment_pending' %>
-              <span class="<%= contribution.state_badge %>" =""><%= contribution.aasm_state %></span>
-            <% elsif contribution.aasm_state == 'canceled' %>
-              <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
-            <% else %>
-              <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
-            <% end %>
+            <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
           </div>
         </div>
       <% end %>

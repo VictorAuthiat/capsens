@@ -67,7 +67,7 @@ class Project < ApplicationRecord
   def percentage
     contribution_sum = (sum * 100).fdiv(purpose).round
     contribution_sum = 100 if contribution_sum > 100
-    transaction = ProjectPercentage.new.call(project: self, contribution_sum: contribution_sum)
+    ProjectPercentage.new.call(project: self, contribution_sum: contribution_sum)
     contribution_sum
   end
 end
