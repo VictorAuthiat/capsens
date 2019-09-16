@@ -17,13 +17,7 @@
               </div>
             </div>
             <div class="state">
-              <% if project.aasm_state == 'success' %>
-                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
-              <% elsif project.aasm_state == 'failure' %>
-                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
-              <% else %>
-                <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
-              <% end %>
+              <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
             </div>
           </div>
           <div class="image-project"><%= image_tag project.image[:large].url %>
