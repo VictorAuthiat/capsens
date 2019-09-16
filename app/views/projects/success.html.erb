@@ -1,15 +1,8 @@
 <div class="container">
-  <div class="infos">
-    <div class="" style="margin-top:30px">
-      <%= search_form_for @q do |f| %>
-        <%= f.label :name_cont %>
-        <%= f.search_field :name_cont %>
-        <%= f.submit 'Search a project', class: "btn btn-primary" %>
-      <% end %>
-      <%= sort_link(@q, :name) do %>
-        <strong>Sort by Name</strong>
-      <% end %>
-    </div>
+  <% if @projects.count < 3 %>
+    <div class="infos">
+  <% end %>
+    <%= render 'shared/search' %>
     <% @projects.each do |project| %>
       <div class="card-trip">
         <%= image_tag project.image[:medium].url %>

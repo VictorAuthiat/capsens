@@ -1,12 +1,25 @@
-<div class="container">
-  <% if @contributions.count < 4 %>
-    <div class="infos">
-  <% end %>
-  <div class="" style="margin-top: 20px;">
-    <%= link_to "my account",edit_user_registration_path, class: "btn btn-warning" %>
+<div class="project-show d-flex">
+  <div class="">
+    <p style="font-size: 24px;">Hello <strong><em><%= current_user.first_name %></em></strong>,</p>
+    <p style="font-size: 20px;">You contributed  <strong><%= current_user.contribution_sum %></strong>€ for <strong><%= current_user.projects_count %></strong>  project and you received <strong><%= current_user.counterparts_counting %></strong> counterparties</p>
   </div>
-    <div class="" style="margin: 100px">
-      <h4>My contributions:</h4>
+  <div class="d-flex" style="margin-left:150px;">
+    <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="projectShow()">Projects</a></div>
+    <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="contributionsShow()">Contributions</a></div>
+    <div class="btn-dashboard">
+    <%= link_to "my account",edit_user_registration_path, class: "btn btn-light btn-account" %>
+  </div>
+  </div>
+</div>
+<% if @contributions.count < 4 %>
+  <div class="infos">
+<% end %>
+<div id="container-dashboard" class="container d-none">
+  <div id="projects">
+    <h4>My projects</h4>
+  </div>
+    <div id="contributions" style="margin: 100px">
+      <h4>My contributions</h4>
       <% @contributions.reverse.find_all do |contribution| %>
         <% project = contribution.project %>
         <% counterpart = contribution.counterpart %>
@@ -44,3 +57,19 @@
     </div>
   </div>
 </div>
+<script>
+  let container = document.getElementById('container-dashboard');
+  let projects = document.getElementById("projects");
+  let contributions = document.getElementById("contributions");
+
+  function contributionsShow() {
+    projects.classList.add("d-none");
+    contributions.classList.remove("d-none");
+    container.classList.remove("d-none");
+  }
+  function projectShow() {
+    contributions.classList.add("d-none");
+    projects.classList.remove("d-none");
+    container.classList.remove("d-none");
+  }
+</script>

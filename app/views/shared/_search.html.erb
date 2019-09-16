@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-between" style="margin-top:30px">
+  <div class="" style="margin: 30px">
+    <form class="project_search" id="project_search" action="/projects" accept-charset="UTF-8" method="get">
+      <input placeholder="Search a project" type="text" name="q[name_cont]" id="q_name_cont">
+      <span></span>
+    </form>
+  </div>
+  <div class="">
+    <%= sort_link(@q, :name, 'Sort by name', :class => 'btn') %>
+  </div>
+</div>
