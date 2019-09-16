@@ -5,6 +5,8 @@ class CreateContributions < ActiveRecord::Migration[6.0]
       t.references :project, null: false, foreign_key: true
       t.references :counterpart, null: false, foreign_key: true
       t.integer :amount_in_cents
+      t.string :aasm_state
+      t.string :wallet_id
 
       t.timestamps
     end

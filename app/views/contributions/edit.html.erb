@@ -1,9 +1,17 @@
 <div class="container">
   <div class="infos">
-    <%= form_for @contribution do |f| %>
-      <%= f.collection_select(:counterpart_id, @counterparts, :id, :amount_in_cents) %>
-      <br>
-      <%= f.submit 'Choose yours' %>
-    <% end %>
+    <h1>Our rewards:</h1>
+    <div class="row justify-content-center">
+      <%= form_for @contribution do |f| %>
+        <div class="" style="margin: 20px;">
+          <%= f.collection_select(:counterpart_id, @counterparts, :id, :amount_in_cents) %>
+        </div>
+        <hr>
+        <%= f.submit 'Choose yours' %>
+      <% end %>
+    </div>
+    <div class="row justify-content-center" style="margin:20px;">
+      <%= link_to 'Or go back', projects_path, class: "btn btn-primary" %>
+    </div>
   </div>
 </div>

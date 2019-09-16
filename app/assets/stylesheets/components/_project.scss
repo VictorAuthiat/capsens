@@ -1,0 +1,38 @@
+.success{
+  background-color: lightgreen;
+  color:white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.failure{
+  background-color: red;
+  color:white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.up{
+  background-color: orange;
+  color:white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.state{
+  margin: 5px;
+}
+.image-project{
+  margin:20px;
+}
+.progress-bar-project{
+  width: 30%; margin:10px;
+}
+.progress-bar-back{
+  width: 100%;
+  background-color: grey;
+  border-radius: 15px;
+}
+.progress-bar-front{
+  background-color: green;
+  border-radius: 15px;
+  color: white; margin:2px;
+  text-align: center;
+}

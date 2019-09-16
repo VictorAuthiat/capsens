@@ -20,18 +20,22 @@
       </div>
       <div class="">
         <%= form_for [@project, @contribution] do |f| %>
-          <div class="" style="background-color: lightgrey; margin:10px; border: 2px solid black; padding: 15px;">
+          <div class="" style="background-color: lightgrey; margin:10px; border: 2px solid grey; padding: 15px;">
             <div class="">
             <%= f.label 'Choose your amount' %>
             <%=  f.text_field :amount_in_cents, placeholder: 'ex: 1000'  %> €
             </div>
-            <div class="">
-
-            </div>
           </div>
-            <%= f.submit %>
+          <div class="d-flex justify-content-center">
+            <%= f.submit 'Contribute'%>
+          </div>
         <% end %>
       </div>
     </div>
+    <% if flash[:error] %>
+      <div class="flash">
+        <span><%= flash[:error] %></span>
+      </div>
+    <% end %>
   </div>
 </div>

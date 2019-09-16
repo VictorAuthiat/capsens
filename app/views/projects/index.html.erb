@@ -1,17 +1,27 @@
 <div class="container">
   <div class="infos">
     <div class="">
-      <!-- | nom dans un lien | status | % de completion | -->
       <% @projects.each do |project| %>
-        <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid black;">
-          <div class=""style="margin: 5px; width: 70%">
-            <ul>Name: <%= link_to project.name, project_path(project) %>
-              <li>State: <%= project.aasm_state %></li>
-
-              <li>Completion: <%= project.percentage %> %</li>
-            </ul>
+        <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid grey; border-radius: 7px 0px 0px 7px;">
+          <div class="d-flex justify-content-between"style="border-radius: 7px 0px 0px 7px;margin: 5px; background-color: white; width: 70%">
+            <div class="">
+              <ul><strong><%= link_to project.name, project_path(project) %></strong>
+                <li>Goal: <%= project.purpose %>€</li>
+                <li>Sum of donations: <%= project.sum %>€</li>
+              </ul>
+            </div>
+            <div class="progress-bar-project">
+              <div class="progress-bar-back">
+                <div class="progress-bar-front"style="width: <%= project.percentage.to_i %>%;"><%= project.percentage %>%
+                </div>
+              </div>
+            </div>
+            <div class="state">
+              <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
+            </div>
           </div>
-          <div class="" style="margin:20px;"><%= image_tag project.image[:large].url %></div>
+          <div class="image-project"><%= image_tag project.image[:large].url %>
+          </div>
         </div>
       <% end %>
     </div>

@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="infos">
+    <div class="row justify-content-center">
+      <div class="" style="border: 1px solid grey;padding: 20px;margin:20px;">
+        <h1><em>Bill:</em></h1>
+        <ul>
+          <strong><%= @contribution.project.name %></strong>
+          <li><%= @contribution.created_at %></li>
+          <li>Amount: <%= @contribution.amount_in_cents.fdiv(100).round %>€</li>
+          <li>Status: <%= @contribution.aasm_state %></li>
+        </ul>
+        <%= link_to 'Choose my counterpart', edit_contribution_path(@contribution), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</div>

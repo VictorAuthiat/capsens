@@ -7,4 +7,4 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @contribution = Contribution.new
   end
- end
+end

@@ -9,4 +9,3 @@
 FactoryBot.create_list(:contribution, 30)
 puts 'Contributions created'
 AdminUser.create!(email: 'admin@capsens.eu', password: 'password', password_confirmation: 'password') if Rails.env.development?
-User.create!(email: 'a@a.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
