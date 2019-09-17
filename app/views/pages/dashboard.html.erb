@@ -62,6 +62,7 @@
             </div>
           </div>
           <div class="">
+            <%= link_to 'Download', contribution_path(contribution.id, format: :pdf), download: "" %>
             <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
           </div>
         </div>

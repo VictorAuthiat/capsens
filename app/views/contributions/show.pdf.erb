@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+    <%= wicked_pdf_javascript_include_tag "number_pages" %>
+  </head>
+  <body onload='number_pages'>
+    <div id="header">
+      <%= wicked_pdf_image_tag 'mysite.jpg' %>
+      <h1>Hello <%= @user.first_name %></h1>
+      <h3>Summary of the contribution:</h3>
+      <ul>
+        <% arr = @user.contributions.to_a %>
+        <% number = arr.index(@contribution) + 1 %>
+        <h4>Contribution n°<%= number %> </h4>
+        <li>Amount <%= @contribution.amount_in_cents.fdiv(100).round %>€</li>
+        <li>Date <%= @contribution.created_at.strftime("%A, %-d %B %y:%d") %></li>
+      </ul>
+    </div>
+    <div id="content">
+      <%= yield %>
+    </div>
+  </body>
+</html>

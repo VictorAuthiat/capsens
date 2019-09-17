@@ -12,6 +12,15 @@ class ContributionsController < ApplicationController
 
   def show
     @contribution = Contribution.find(params[:id])
+    @project = @contribution.project
+    @counterpart = @contribution.counterpart
+    @user = current_user
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'contribution'
+      end
+    end
   end
 
   def edit
