@@ -8,6 +8,9 @@ ActiveAdmin.register Project do
     :category_id,
     counterparts_attributes: %i[amount_in_cents name]
   )
+  action_item :csv, only: :show do
+    link_to 'Download contributors', csv_download_url(project: resource)
+  end
 
   action_item :check_state, only: :show do
     link_to 'update state', url_for(action: :check_state)
