@@ -21,8 +21,10 @@ class ContributionsController < ApplicationController
   end
 
   def update
+    @user = current_user
     @contribution = Contribution.find(params[:id])
     @contribution.update(counterpart_id: params[:contribution][:counterpart_id])
+    UpdateUserCounterpartsCount.new.call(user: @user)
     redirect_to dashboard_path
   end
 

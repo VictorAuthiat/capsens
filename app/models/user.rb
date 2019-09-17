@@ -10,4 +10,17 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :country_of_residence, presence: true
   validates :nationality, presence: true
+
+  def contribution_sum
+    paid_contributions = contributions.where(aasm_state: 'paid')
+    paid_contributions.pluck(:amount_in_cents).sum.fdiv(100).round
+  end
+
+  def user_projects
+    contributions.all.group_by(&:project)
+  end
+
+  def projects_count
+    user_projects.count
+  end
 end

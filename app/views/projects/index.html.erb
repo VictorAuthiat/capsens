@@ -1,29 +1,30 @@
 <div class="container">
-  <div class="infos">
-    <div class="">
-      <% @projects.each do |project| %>
-        <div class="d-flex" style="background-color: lightgrey;margin:20px;border:1px solid grey; border-radius: 7px 0px 0px 7px;">
-          <div class="d-flex justify-content-between"style="border-radius: 7px 0px 0px 7px;margin: 5px; background-color: white; width: 70%">
+  <% if @projects.count < 3 %>
+    <div class="infos">
+  <% end %>
+    <%= render 'shared/search' %>
+    <% @projects.each do |project| %>
+      <div class="card-trip">
+        <%= image_tag project.image[:medium].url %>
+        <div class="card-trip-infos">
+          <div>
+            <h2><%= link_to project.name, project_path(project) %></h2>
             <div class="">
-              <ul><strong><%= link_to project.name, project_path(project) %></strong>
-                <li>Goal: <%= project.purpose %>€</li>
-                <li>Sum of donations: <%= project.sum %>€</li>
-              </ul>
-            </div>
-            <div class="progress-bar-project">
-              <div class="progress-bar-back">
-                <div class="progress-bar-front"style="width: <%= project.percentage.to_i %>%;"><%= project.percentage %>%
-                </div>
-              </div>
-            </div>
-            <div class="state">
+            <h2 class="card-trip-pricing">Goal: <%= project.purpose %>€</h2>
+            Sum of donations: <%= project.sum %>€
+          </div>
+            <div class="state card-trip-state">
               <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
             </div>
           </div>
-          <div class="image-project"><%= image_tag project.image[:large].url %>
+          <div class="progress-bar-project">
+            <div class="progress-bar-back">
+              <div class="progress-bar-front"style="width: <%= project.percentage.to_i %>%;"><%= project.percentage %>%
+              </div>
+            </div>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

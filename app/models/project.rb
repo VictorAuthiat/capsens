@@ -9,7 +9,11 @@ class Project < ApplicationRecord
   validates :purpose, presence: true
   validates :content, presence: true
   validates :image_data, presence: true
-
+  scope :sort_by_reverse_name_asc, lambda { order("REVERSE(name) ASC") }
+  scope :sort_by_reverse_name_desc, lambda { order("REVERSE(name) DESC") }
+  scope :upgoing, -> { where aasm_state: :upgoing }
+  scope :ongoing, -> { where aasm_state: :upgoing }
+  scope :succeeded, -> { where aasm_state: :success }
   aasm do
     state :draft, initial: true
     state :upgoing

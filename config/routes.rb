@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :contributions, only: :show
   resources :projects, only: %i[index show] do
     resources :contributions, only: %i[new create]
+    collection do
+      match 'search' => 'projects#search', via: [:get, :post], as: :search
+    end
   end
   get 'payment', to: 'payments#payment'
   resources :contributions, only: %i[edit update]

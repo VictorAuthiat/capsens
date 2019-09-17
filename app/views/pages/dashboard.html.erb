@@ -1,13 +1,51 @@
-<div class="container">
-  <div class="infos">
-    <div class="">
-      <h4>My contributions:</h4>
-      <% @contributions.find_each do |contribution| %>
+<div class="project-show d-flex">
+  <div class="">
+    <p style="font-size: 24px;">Hello <strong><em><%= current_user.first_name %></em></strong>,</p>
+    <p style="font-size: 20px;">You contributed  <strong><%= current_user.contribution_sum %></strong>€ for <strong><%= current_user.projects_count %></strong>  project and you received <strong><%= current_user.counterparts_counting %></strong> counterparties</p>
+  </div>
+  <div class="d-flex" style="margin-left:150px;">
+    <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="projectShow()">Projects</a></div>
+    <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="contributionsShow()">Contributions</a></div>
+    <div class="btn-dashboard">
+    <%= link_to "My account",edit_user_registration_path, class: "btn btn-light btn-account" %>
+  </div>
+  </div>
+</div>
+<div id="pousseur" class="infos"></div>
+<div id="container-dashboard" class="container d-none">
+  <div id="projects">
+    <h4 style="margin:60px; color:#D53855;">My projects</h4>
+    <% current_user.user_projects.each do |project| %>
+      <div class="card-trip" style="padding: 15px;">
+        <strong><%= project[0].name %></strong>
+        <hr>
+        <div class=""><em>Contributions:</em></div>
+        <% project[1].each do |contribution| %>
+          <div class="d-flex">
+            <% if contribution.aasm_state == 'paid' %>
+              <span style="margin-right: 5px"><strong><%= contribution.amount_in_cents.fdiv(100).round %>€</strong></span>
+              <div class="d-flex">
+                <div class="">
+                  <em>reward:</em>
+                </div>
+                <div class="">
+                  <span><strong><%= contribution.counterpart.name %></strong>(<%= contribution.counterpart.amount_in_cents.fdiv(100).round %>€)</span>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+    <div id="contributions">
+      <h4 style="color:#D53855; margin: 60px">My contributions</h4>
+      <% @contributions.reverse.find_all do |contribution| %>
         <% project = contribution.project %>
         <% counterpart = contribution.counterpart %>
-        <div class="d-flex justify-content-between" style="background-color: lightgrey; padding: 15px; margin:10px; border: 2px solid grey">
+        <div class="d-flex justify-content-between card-trip" style="padding: 15px; margin:10px;">
           <div class="">
-            <div class=""><%= contribution.amount_in_cents.fdiv(100).round %>€</div>
+            <div class=""><strong><%= contribution.amount_in_cents.fdiv(100).round %>€</strong></div>
             <div class="" style="background-color: white; width: 100%">
               <% if counterpart %>
                 <ul>
@@ -29,8 +67,24 @@
         </div>
       <% end %>
     </div>
-    <div class="" style="margin-top: 20px;">
-      <%= link_to "my account",edit_user_registration_path, class: "btn btn-warning" %>
-    </div>
   </div>
 </div>
+<script>
+  let pousseur = document.getElementById('pousseur');
+  let container = document.getElementById('container-dashboard');
+  let projects = document.getElementById('projects');
+  let contributions = document.getElementById('contributions');
+
+  function contributionsShow() {
+    pousseur.classList.add('d-none');
+    projects.classList.add('d-none');
+    contributions.classList.remove('d-none');
+    container.classList.remove('d-none');
+  }
+  function projectShow() {
+    pousseur.classList.add('d-none');
+    contributions.classList.add('d-none');
+    projects.classList.remove('d-none');
+    container.classList.remove('d-none');
+  }
+</script>

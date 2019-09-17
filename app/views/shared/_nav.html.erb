@@ -4,8 +4,8 @@
   <% end %>
   <% if user_signed_in? %>
     <div class="">
-      <%= link_to "dashboard", dashboard_path, class: "btn btn-success" %>
-      <%= link_to "Log out", destroy_user_session_path, method: :delete, class: 'btn btn-warning' %>
+      <%= link_to "dashboard", dashboard_path, class: "btn btn-red" %>
+      <%= link_to "Log out", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-light btn-logout" %>
     </div>
   <% else %>
   <div class="d-flex justify-space-between">

@@ -1,6 +1,6 @@
 .nav {
   justify-content: space-between;
-  background: lightgrey;
+  background: #FFFFFF;
 }
 
 .nav .navbar-collapse {
@@ -9,4 +9,9 @@
 
 .nav .navbar-brand img {
   width: 40px;
+}
+.mini-nav{
+  padding:10px;
+  background: #D53855;
+  height: auto;
 }

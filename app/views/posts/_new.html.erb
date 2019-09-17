@@ -1,17 +1,19 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <%= form_for "/", multipart: true do |f| %>
-      <hr>
-      <div class=""><%= f.label 'Email' %></div>
-      <%= f.text_field 'email' %>
-      <div class=""><%= f.label 'Message' %></div>
-      <%= f.text_field 'message' %>
-      <hr>
-      <div class=""><%= f.submit "Send", class: "btn btn-large btn-primary" %></div>
-    <% end %>
-  </div>
-  <div class="d-flex justify-content-between">
-    <div class="pousse"></div>
-    <div class=""><%= link_to 'Boite', '/inbox', class: "btn btn-success" %></div>
+  <div class="d-flex justify-content-center">
+    <div class="" style="margin: 20px 0px 30px 100px;">
+      <%= form_for "/", multipart: true do |f| %>
+        <hr>
+        <div class="" style="color:white"><%= f.label 'Email' %></div>
+        <%= f.text_field 'email' %>
+        <div class="" style="color:white"><%= f.label 'Message' %></div>
+        <%= f.text_field 'message' %>
+        <hr>
+        <div class=""><%= f.submit "Send", class: "btn btn-large btn-primary" %></div>
+      <% end %>
+    </div>
+    <div class="" style="margin:50px;">
+      <%= link_to 'Inbox', '/inbox', class: "btn btn-light btn-logout" %>
+      <%= link_to 'Admin', new_admin_user_session_path, class: "btn btn-light btn-logout" %>
+    </div>
   </div>
 </div>
