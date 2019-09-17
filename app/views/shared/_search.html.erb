@@ -6,18 +6,11 @@
     </form>
   </div>
   <div class="">
+  <%= link_to 'Upgoing', projects_url(q: { aasm_state_eq: 'upgoing' }), class: "btn btn-light btn-toggle" %>
+  <%= link_to 'Ongoing', projects_url(q: { aasm_state_eq: 'ongoing' }), class: "btn btn-light btn-toggle" %>
+  <%= link_to 'Succeeded', projects_url(q: { aasm_state_eq: 'success' }), class: "btn btn-light btn-toggle" %>
+  </div>
+  <div class="">
     <%= sort_link(@q, :name, 'Sort by name', :class => 'btn') %>
   </div>
-  <form class="project_search" id="project_search" action="/projects" accept-charset="UTF-8" method="get">
-    <input class="d-none" placeholder="Search a project" type="text" name="q[aasm_state_cont]" id="q_aasm_state_cont" value="upgoing">
-    <input type="submit" name="commit" value="Upgoing projects" data-disable-with="Search">
-  </form>
-  <form class="project_search" id="project_search" action="/projects" accept-charset="UTF-8" method="get">
-    <input class="d-none" placeholder="Search a project" type="text" name="q[aasm_state_cont]" id="q_aasm_state_cont" value="ongoing">
-    <input class="btn" type="submit" name="commit" value="Ongoing projects" data-disable-with="Search">
-  </form>
-  <form class="project_search" id="project_search" action="/projects" accept-charset="UTF-8" method="get">
-    <input class="d-none" placeholder="Search a project" type="text" name="q[aasm_state_cont]" id="q_aasm_state_cont" value="success">
-    <input class="btn" type="submit" name="commit" value="Succeeded projects" data-disable-with="Search">
-  </form>
 </div>
