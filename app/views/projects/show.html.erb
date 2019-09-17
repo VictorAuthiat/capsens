@@ -6,13 +6,7 @@
     <strong style="font-size: 20px"><%= @project.name %></strong>
     <p><%= @project.short_content %></p>
     <div class="state">
-    <% if @project.aasm_state == 'success' %>
       <span class="<%= @project.state_badge %>"><%= @project.aasm_state %></span>
-    <% elsif @project.aasm_state == 'failure' %>
-      <span class="<%= @project.state_badge %>"><%= @project.aasm_state %></span>
-    <% else %>
-      <span class="<%= @project.state_badge %>"><%= @project.aasm_state %></span>
-    <% end %>
   </div>
   </div>
 </div>
