@@ -9,23 +9,9 @@ class ProjectsController < ApplicationController
     @contribution = Contribution.new
   end
 
-  def success
-    @q = Project.all.where(aasm_state: %w[success]).ransack(params[:q])
-    @projects = @q.result
-  end
-
-  def upcoming
-    @q = Project.all.where(aasm_state: %w[upgoing]).ransack(params[:q])
-    @projects = @q.result
-  end
-
-  def ongoing
-    @q = Project.all.where(aasm_state: %w[ongoing]).ransack(params[:q])
-    @projects = @q.result
-  end
-
   def search
     index
+    @projects = @q.result
     render :index
   end
 end
