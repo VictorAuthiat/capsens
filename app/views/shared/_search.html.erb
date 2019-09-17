@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between" style="margin-top:30px">
   <div class="" style="margin: 30px">
-    <form class="project_search" id="project_search" action="/projects" accept-charset="UTF-8" method="get">
+    <form class="project_search project-s" id="project_search project-s" action="/projects" accept-charset="UTF-8" method="get">
       <input placeholder="Search a project" type="text" name="q[name_cont]" id="q_name_cont">
       <span></span>
     </form>
@@ -8,4 +8,16 @@
   <div class="">
     <%= sort_link(@q, :name, 'Sort by name', :class => 'btn') %>
   </div>
+  <form class="project_search" id="project_search" action="/projects/search" accept-charset="UTF-8" method="get">
+    <input class="d-none" placeholder="Search a project" type="text" name="q[aasm_state_cont]" id="q_name_cont" value="upgoing">
+    <input type="submit" name="commit" value="Upgoing projects" data-disable-with="Search">
+  </form>
+  <form class="project_search" id="project_search" action="/projects/search" accept-charset="UTF-8" method="get">
+    <input class="d-none" placeholder="Search a project" type="text" name="q[aasm_state_cont]" id="q_name_cont" value="ongoing">
+    <input class="btn" type="submit" name="commit" value="Ongoing projects" data-disable-with="Search">
+  </form>
+  <form class="project_search" id="project_search" action="/projects/search" accept-charset="UTF-8" method="get">
+    <input class="d-none" placeholder="Search a project" type="text" name="q[aasm_state_cont]" id="q_name_cont" value="success">
+    <input class="btn" type="submit" name="commit" value="Succeeded projects" data-disable-with="Search">
+  </form>
 </div>

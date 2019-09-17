@@ -23,4 +23,9 @@ class ProjectsController < ApplicationController
     @q = Project.all.where(aasm_state: %w[ongoing]).ransack(params[:q])
     @projects = @q.result
   end
+
+  def search
+    index
+    render :index
+  end
 end
