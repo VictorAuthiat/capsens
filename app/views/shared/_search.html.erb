@@ -11,6 +11,9 @@
   <%= link_to 'Succeeded', projects_url(q: { aasm_state_eq: 'success' }), class: "btn btn-light btn-toggle" %>
   </div>
   <div class="">
-    <%= sort_link(@q, :name, 'Sort by name', :class => 'btn') %>
+    <%= sort_link(@q, :name, '') %>
   </div>
 </div>
+<script>
+  document.querySelector('.sort_link').classList.add('sort-link');
+</script>
