@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
+    <%= wicked_pdf_javascript_include_tag "number_pages" %>
+  </head>
+  <body onload='number_pages'>
+    <div id="header">
+      <%= wicked_pdf_image_tag 'mysite.jpg' %>
+      <h1 style="margin-top: 100px"><%= @bill.name %> from MANGOPAY</h1>
+      <span><%= @date %></span>
+      <div class="d-flex justify-content-between">
+        <div class="">
+          <span>Amount: <%= @amount %> <%= @currency %></span>
+          <span>Fees: <%= @fees %> <%= @currency %></span>
+        </div>
+        <div class="" style="border:1px solid black; padding: 20px;">
+          <div class=""><span>Reference: <%= @ref %></span></div>
+          <div class=""><span>IBAN: <%= @iban %></span></div>
+          <div class=""><span>BIC: <%= @bic %></span></div>
+        </div>
+      </div>
+      <h5>TOTAL: <%= @amount + @fees %> <%= @currency %></h5>
+    </div>
+    <div id="content">
+      <%= yield %>
+    </div>
+  </body>
+</html>
