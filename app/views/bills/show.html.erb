@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="infos">
+    <h1 style="margin-top: 100px"><%= @bill.name %> from MANGOPAY</h1>
+    <p><%= DateTime.strptime((@bill.content['CreationDate']).to_s,'%s').strftime("%A, %-d %B %y:%d") %></p>
+    <div class="d-flex justify-content-between">
+      <div class="">
+        <p>Amount: <%= @amount %> <%= @currency %></p>
+        <p>Fees: <%= @fees %> <%= @currency %></p>
+      </div>
+      <div class="" style="border:1px solid black; padding: 20px;">
+        <div class=""><span>Reference: <%= @ref %></span></div>
+        <div class=""><span>IBAN: <%= @iban %></span></div>
+        <div class=""><span>BIC: <%= @bic %></span></div>
+      </div>
+    </div>
+    <h5>TOTAL: <%= @amount + @fees %> <%= @currency %></h5>
+  </div>
+</div>

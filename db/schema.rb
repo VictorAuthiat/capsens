@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_101507) do
+ActiveRecord::Schema.define(version: 2019_09_18_090120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,19 @@ ActiveRecord::Schema.define(version: 2019_09_14_101507) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "bills", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "contribution_id", null: false
+    t.bigint "project_id", null: false
+    t.text "content"
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["contribution_id"], name: "index_bills_on_contribution_id"
+    t.index ["project_id"], name: "index_bills_on_project_id"
+    t.index ["user_id"], name: "index_bills_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -43,6 +56,7 @@ ActiveRecord::Schema.define(version: 2019_09_14_101507) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "mango_pay_id"
+    t.boolean "bankwire", default: false
     t.index ["counterpart_id"], name: "index_contributions_on_counterpart_id"
     t.index ["project_id"], name: "index_contributions_on_project_id"
     t.index ["user_id"], name: "index_contributions_on_user_id"
@@ -95,10 +109,18 @@ ActiveRecord::Schema.define(version: 2019_09_14_101507) do
     t.string "mango_pay_id"
     t.string "wallet_id"
     t.integer "counterparts_counting", default: 0
+    t.string "provider"
+    t.string "uid"
+    t.string "facebook_picture_url"
+    t.string "token"
+    t.datetime "token_expiry"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bills", "contributions"
+  add_foreign_key "bills", "projects"
+  add_foreign_key "bills", "users"
   add_foreign_key "contributions", "counterparts"
   add_foreign_key "contributions", "projects"
   add_foreign_key "contributions", "users"

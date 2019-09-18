@@ -14,4 +14,9 @@ class ProjectsController < ApplicationController
     @projects = @q.result
     render :index
   end
+
+  def bankwire
+    @project = Project.find(params[:id])
+    @contribution = Contribution.new
+  end
 end
