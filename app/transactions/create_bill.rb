@@ -15,6 +15,7 @@ class CreateBill < Transaction
     @bill.contribution = @contribution
     @bill.content = input[:content]
     @bill.name = 'Bill n°' + (@user.bills.count + 1).to_s + "#{@user.first_name}"
+    @bill.amount_in_cents = @contribution.amount_in_cents
   end
 
   def validate(input)
