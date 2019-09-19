@@ -38,9 +38,11 @@ gem 'shrine', '~> 2.0'
 gem 'aasm'
 gem 'mangopay'
 gem 'ransack'
+
 gem 'bootstrap-datepicker-rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
 
