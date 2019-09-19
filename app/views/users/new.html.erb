@@ -9,15 +9,17 @@
             <%= f.text_field :first_name %>
             <div><%= f.label :last_name %></div>
             <%= f.text_field :last_name %>
-            <div><%= f.label :birthday %></div>
-              <%= f.date_select :birthday, order: [:day, :month, :year], prompt: { day: 'Select day', month: 'Select month', year: 'Select year' }, start_year: Date.today.year, end_year: Date.today.year - 100 %>
+            <div class="field">
+              <%= f.label :birthday %><br />
+              <%= f.text_field :birthday, data: { behavior: "flatpickr" } %>
             </div>
-            <div class="">
-              <div><%= f.label :country_of_residence %></div>
-              <%= f.text_field :country_of_residence, placeholder: 'ex: FR' %>
-              <div><%= f.label :nationality %></div>
-              <%= f.text_field :nationality, placeholder: 'ex: FR' %>
-            </div>
+          </div>
+          <div class="">
+            <div><%= f.label :country_of_residence %></div>
+            <%= f.text_field :country_of_residence, placeholder: 'ex: FR' %>
+            <div><%= f.label :nationality %></div>
+            <%= f.text_field :nationality, placeholder: 'ex: FR' %>
+          </div>
           <div class="">
             <div><%= f.label :email %></div>
             <%= f.text_field :email %>
