@@ -1,8 +1,8 @@
 class ProjectDecorator < BaseDecorator
   def state_badge
-    if self.aasm_state == 'success'
+    if aasm_state == 'success'
       'success'
-    elsif self.aasm_state == 'failure'
+    elsif aasm_state == 'failure'
       'failure'
     else
       'up'

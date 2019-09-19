@@ -6,7 +6,7 @@
     <strong style="font-size: 20px"><%= @project.name %></strong>
     <p><%= @project.short_content %></p>
     <div class="state">
-      <span class="<%= @project_decorator.state_badge %>"><%= @project.aasm_state %></span>
+      <span class="<%= project.state_badge %>"><%= @project.aasm_state %></span>
   </div>
   </div>
 </div>
@@ -33,12 +33,12 @@
       <strong>Goal:</strong> <%= @project.purpose %> €
     </div>
     <div class="">
-     <strong>Sum of donations:</strong> <%= @project_decorator.sum %>€
+     <strong>Sum of donations:</strong> <%= project.sum %>€
     </div>
     <hr>
     <div class="progress-bar-project"style="width: 100%">
       <div class="progress-bar-back">
-        <div class="progress-bar-front"style="width: <%= @project_decorator.percentage.to_i %>%;"><%= @project_decorator.percentage %>%
+        <div class="progress-bar-front"style="width: <%= project.percentage.to_i %>%;"><%= project.percentage %>%
         </div>
       </div>
     </div>

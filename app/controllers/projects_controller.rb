@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  decorates_assigned :project, :projects
   def index
     @q = Project.all.where(aasm_state: %w[upgoing ongoing success]).ransack(params[:q])
     @projects = @q.result
@@ -7,7 +8,6 @@ class ProjectsController < ApplicationController
   def show
     @project = Project.find(params[:id])
     @contribution = Contribution.new
-    @project_decorator = helpers.decorate(@project)
   end
 
   def search

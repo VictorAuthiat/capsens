@@ -73,7 +73,7 @@ ActiveAdmin.register Project do
     f.actions
   end
   show do
-    @project_decorator = helpers.decorate(project)
+    @project_decorator = project.decorate
     first = project.contributions.minimum(:amount_in_cents)
     last = project.contributions.maximum(:amount_in_cents)
     sum = project.contributions.sum(:amount_in_cents).fdiv(100).to_s
