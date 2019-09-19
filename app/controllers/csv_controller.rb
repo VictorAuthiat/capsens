@@ -1,10 +1,14 @@
 class CsvController < ApplicationController
+  before_action :fetch_project, only: :download
+
   def download
-    transaction = CsvExport.new.call(pro: params[:project], user: current_user)
-    if transaction.success?
-      send_data File.read(transaction.success[:filepath]), :type => 'text/csv', :disposition => "attachment; filename=contributors.csv"
-    else
-      flash[:error] = transaction.failure[:error]
-    end
+    ContributorWorker.perform_async(@project_id, current_user.id)
+    redirect_to admin_project_path(@project_id)
+  end
+
+  private
+
+  def fetch_project
+    @project_id = params[:project]
   end
 end

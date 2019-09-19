@@ -11,12 +11,12 @@ class CsvExport < Transaction
     @project = Project.find(input[:pro].to_i)
     arr_of_contributors = []
     hash = @project.contributions.group_by(&:user)
-    hash.each{|k,v|arr_of_contributors << k}
+    hash.each { |k, _v| arr_of_contributors << k }
     csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
     @file       = Tempfile.new('contributors.csv', 'tmp')
     @filepath   = @file.path
     CSV.open(@filepath, 'wb', csv_options) do |csv|
-      csv << ['Name', 'Created_at']
+      csv << %w[Name Created_at]
       arr_of_contributors.each do |user|
         arr = Array.new(2)
         arr[0] = user.first_name

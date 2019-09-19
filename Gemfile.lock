@@ -115,6 +115,7 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     content_disposition (1.0.0)
     crass (1.0.4)
     descendants_tracker (0.0.4)
@@ -259,6 +260,8 @@ GEM
     public_suffix (4.0.1)
     puma (3.12.1)
     rack (2.0.7)
+    rack-protection (2.0.7)
+      rack
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -300,6 +303,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    redis (4.1.3)
     reek (5.4.0)
       codeclimate-engine-rb (~> 0.4.0)
       kwalify (~> 0.7.0)
@@ -377,6 +381,11 @@ GEM
     shrine (2.19.3)
       content_disposition (~> 1.0)
       down (~> 4.1)
+    sidekiq (6.0.0)
+      connection_pool (>= 2.2.2)
+      rack (>= 2.0.0)
+      rack-protection (>= 2.0.0)
+      redis (>= 4.1.0)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -461,6 +470,7 @@ DEPENDENCIES
   sass-rails (~> 5)
   selenium-webdriver
   shrine (~> 2.0)
+  sidekiq
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)
