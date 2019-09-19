@@ -4,6 +4,7 @@ class Project < ApplicationRecord
   belongs_to :category
   has_many :counterparts, dependent: :destroy
   has_many :contributions, dependent: :destroy
+  has_many :contributors, through: :contributions, source: :user
   accepts_nested_attributes_for :counterparts, :allow_destroy => true
   validates :name, presence: true
   validates :purpose, presence: true
