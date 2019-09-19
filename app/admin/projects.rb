@@ -73,12 +73,13 @@ ActiveAdmin.register Project do
     f.actions
   end
   show do
+    @project_decorator = helpers.decorate(project)
     first = project.contributions.minimum(:amount_in_cents)
     last = project.contributions.maximum(:amount_in_cents)
     sum = project.contributions.sum(:amount_in_cents).fdiv(100).to_s
     div do
       h4 'Current contributions: ' + sum + ' $'
-      h4 'Percentage of completeness: ' + project.percentage.round.to_s + '%'
+      h4 'Percentage of completeness: ' + @project_decorator.percentage.round.to_s + '%'
       h3 'Contributions:'
       h4 'Lower: ' + first.fdiv(100).to_s + '€' if first
       h4 'Higher: ' + last.fdiv(100).to_s + '€' if last

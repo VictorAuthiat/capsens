@@ -1,7 +1,7 @@
-<div class="project-show d-flex">
+  <div class="project-show d-flex">
   <div class="">
     <p style="font-size: 24px;">Hello <strong><em><%= @user_decorator.full_name %></em></strong>,</p>
-    <p style="font-size: 20px;">You contributed  <strong><%= current_user.contribution_sum %></strong>€ for <strong><%= current_user.projects_count %></strong>  project and you received <strong><%= current_user.counterparts_counting %></strong> counterparties</p>
+    <p style="font-size: 20px;">You contributed  <strong><%= @user_decorator.contribution_sum %></strong>€ for <strong><%= @user_decorator.projects_count %></strong>  project and you received <strong><%= current_user.counterparts_counting %></strong> counterparties</p>
   </div>
   <div class="d-flex" style="margin-left:150px;">
     <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="projectShow()">Projects</a></div>
@@ -15,7 +15,7 @@
 <div id="container-dashboard" class="container d-none">
   <div id="projects">
     <h4 style="margin:60px; color:#D53855;">My projects</h4>
-    <% current_user.user_projects.each do |project| %>
+    <% @user_decorator.user_projects.each do |project| %>
       <div class="card-trip" style="padding: 15px;">
         <strong><%= project[0].name %></strong>
         <hr>
@@ -41,6 +41,7 @@
     <div id="contributions">
       <h4 style="color:#D53855; margin: 60px">My contributions</h4>
       <% @contributions.reverse.find_all do |contribution| %>
+        <% contribution_decorator = decorate(contribution) %>
         <% project = contribution.project %>
         <% counterpart = contribution.counterpart %>
         <div class="d-flex justify-content-between card-trip" style="padding: 15px; margin:10px;">
@@ -62,7 +63,7 @@
             </div>
           </div>
           <div class="">
-            <span class="<%= contribution.state_badge %>"><%= contribution.aasm_state %></span>
+            <span class="<%= contribution_decorator.state_badge %>"><%= contribution.aasm_state %></span>
           </div>
         </div>
       <% end %>

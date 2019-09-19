@@ -4,6 +4,7 @@
   <% end %>
     <%= render 'shared/search' %>
     <% @projects.each do |project| %>
+      <% project_decorator = decorate(project) %>
       <div class="card-trip">
         <%= image_tag project.image[:medium].url %>
         <div class="card-trip-infos">
@@ -11,15 +12,15 @@
             <h2><%= link_to project.name, project_path(project) %></h2>
             <div class="">
             <h2 class="card-trip-pricing">Goal: <%= project.purpose %>€</h2>
-            Sum of donations: <%= project.sum %>€
+            Sum of donations: <%= project_decorator.sum %>€
           </div>
             <div class="state card-trip-state">
-              <span class="<%= project.state_badge %>"><%= project.aasm_state %></span>
+              <span class="<%= project_decorator.state_badge %>"><%= project.aasm_state %></span>
             </div>
           </div>
           <div class="progress-bar-project">
             <div class="progress-bar-back">
-              <div class="progress-bar-front"style="width: <%= project.percentage.to_i %>%;"><%= project.percentage %>%
+              <div class="progress-bar-front"style="width: <%= project_decorator.percentage.to_i %>%;"><%= project_decorator.percentage %>%
               </div>
             </div>
           </div>
