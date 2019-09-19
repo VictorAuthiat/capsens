@@ -3,11 +3,10 @@ class ContributorWorker
   sidekiq_options retry: false
 
   def perform(project, user)
-    transaction = CsvExport.new.call(pro: project.to_i, user: User.find(user))
-    if transaction.success?
-      Rails.application.routes.url_helpers.send_data_url(id: 1, data: transaction.success[:filepath])
-    else
+    transaction = CsvExport.new.call(pro: project, user: user)
+    if transaction.failure?
       flash[:error] = transaction.failure[:error]
+      redirect_to admin_project_path(project)
     end
   end
 end

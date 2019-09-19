@@ -53,5 +53,6 @@ class CreateUser < Transaction
 
   def email(input)
     PostMailer.new_message('no-reply@capsens', input[:user].email).deliver_now
+    byebug
   end
 end

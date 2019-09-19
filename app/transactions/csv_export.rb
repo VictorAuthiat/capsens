@@ -1,8 +1,9 @@
 require 'csv'
 class CsvExport < Transaction
   step :validate
-  step :generate_csv_file
-
+  tee :generate_csv_file
+  tee :send_email
+  tee :test
   private
 
   def validate(input)
@@ -15,16 +16,27 @@ class CsvExport < Transaction
     end
   end
 
-  def generate_csv_file(input)
+  def generate_csv_file(_input)
     csv_options = { col_sep: ',', force_quotes: true, quote_char: '"' }
-    file       = Tempfile.new('contributors.csv', 'tmp')
-    filepath   = file.path
+    @file       = Tempfile.new('contributors.csv', 'tmp')
+    filepath    = @file.path
     CSV.open(filepath, 'wb', csv_options) do |csv|
       csv << %w[Name Created_at]
       @hash.each do |user|
         csv << [user.first_name, user.created_at]
       end
     end
-    Success(input.merge(file: file))
+  end
+
+  def send_email(input)
+    PostMailer.new_csv(
+      'no-reply@capsens',
+      input[:user],
+      File.read(@file.path)
+    ).deliver_later
+  end
+
+  def test
+    byebug
   end
 end
