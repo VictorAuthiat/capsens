@@ -1,6 +1,6 @@
 <div class="project-show d-flex">
   <div class="">
-    <p style="font-size: 24px;">Hello <strong><em><%= current_user.first_name %></em></strong>,</p>
+    <p style="font-size: 24px;">Hello <strong><em><%= @user_decorator.full_name %></em></strong>,</p>
     <p style="font-size: 20px;">You contributed  <strong><%= current_user.contribution_sum %></strong>€ for <strong><%= current_user.projects_count %></strong>  project and you received <strong><%= current_user.counterparts_counting %></strong> counterparties</p>
   </div>
   <div class="d-flex" style="margin-left:150px;">

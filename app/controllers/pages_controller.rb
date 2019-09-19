@@ -11,5 +11,6 @@ class PagesController < ApplicationController
 
   def dashboard
     @contributions = current_user.contributions
+    @user_decorator = helpers.decorate(current_user)
   end
 end
