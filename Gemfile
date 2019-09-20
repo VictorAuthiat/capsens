@@ -40,6 +40,7 @@ gem 'mangopay'
 gem 'ransack'
 gem 'bootstrap-datepicker-rails'
 gem 'sidekiq'
+gem 'json'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
