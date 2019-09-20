@@ -3,7 +3,7 @@ class CsvExport < Transaction
   step :validate
   tee :generate_csv_file
   tee :send_email
-  tee :test
+
   private
 
   def validate(input)
@@ -34,9 +34,5 @@ class CsvExport < Transaction
       input[:user],
       File.read(@file.path)
     ).deliver_later
-  end
-
-  def test
-    byebug
   end
 end

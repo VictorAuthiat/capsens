@@ -10,7 +10,16 @@ require 'support/factory_bot'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-
+# require 'sidekiq/testing/inline'
+# require 'sidekiq-status/testing/inline'
+# RSpec::Sidekiq.configure do |config|
+#   # Clears all job queues before each example
+#   config.clear_all_enqueued_jobs = true # default => true
+#   # Whether to use terminal colours when outputting messages
+#   config.enable_terminal_colours = true # default => true
+#   # Warn when jobs are not enqueued to Redis but to a job array
+#   config.warn_when_jobs_not_processed_by_sidekiq = true # default => true
+# end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -35,6 +44,9 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
+end
+RSpec::Sidekiq.configure do |config|
+  config.warn_when_jobs_not_processed_by_sidekiq = false
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
