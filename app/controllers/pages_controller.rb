@@ -11,6 +11,5 @@ class PagesController < ApplicationController
 
   def dashboard
     @contributions = current_user.contributions
-    @bills = current_user.bills
   end
 end

@@ -1,60 +1,26 @@
 class CreateContribution < Transaction
-  tee :initialize_contribution
-  step :validate
-  tee :create
-  tee :callback_url
-  step :test_card_web
+  step :create
 
   private
 
-  def initialize_contribution(input)
+  def create(input)
     @contribution = input[:contribution]
-    @project = Project.find(input[:project_id].to_i)
-    @contribution.user_id = input[:user]
-    @contribution.project_id = @project.id
-    @counterpart = @project.counterparts.first
-    @contribution.counterpart_id = @counterpart.id
-    @user = @contribution.user
-  end
-
-  def validate(input)
-    if @contribution.valid?
-      Success(input)
+    if @contribution.bankwire
+      transaction = CreateBankwireContribution.new.call(contribution: @contribution, project_id: input[:project_id], user: input[:user])
+      if transaction.success?
+        Success(input.merge(redirect: transaction.success[:redirect]))
+      else
+        flash[:error] = transaction.failure[:error]
+        Failure(input.merge(redirect: transaction.failure[:project]))
+      end
     else
-      Failure(input.merge(project: input[:project_id].to_i, error: "Amount can't be blank!"))
-    end
-  end
-
-  def create(_input)
-    @contribution.save
-  end
-
-  def callback_url(_input)
-    @callback_url = Rails.application.routes.url_helpers.payment_url
-  end
-  # On cree un PayIn
-  def test_card_web(input)
-    card_web = MangoPay::PayIn::Card::Web.create(
-      'AuthorId': @user.mango_pay_id,
-      'CreditedUserId': @user.mango_pay_id,
-      'CreditedWalletId': @user.wallet_id,
-      'DebitedFunds': { Currency: 'EUR', Amount: @contribution.amount_in_cents },
-      'Fees': { Currency: 'EUR', Amount: 0 },
-      'CardType': 'CB_VISA_MASTERCARD',
-      'ReturnURL': @callback_url,
-      'Culture': (@user.country_of_residence == 'FR' ? 'FR' : 'EN'),
-      'Tag': 'PayIn/Card/Web',
-      "SecureMode": 'DEFAULT',
-      "TemplateURL": 'http://www.a-url.com/3DS-redirect'
-    )
-    # On envoie l'utilisateur sur la page Mango pour qu'il renseigne sa CB
-    # Mango nous renvoie le resultat (paiement en succes / echec)
-    if card_web['Status'] == 'FAILED'
-      Failure({ contribution: @contribution }.merge(error: 'mango_pay_error_card', project: @contribution.project_id))
-    else
-      @contribution.update(aasm_state: 'payment_pending')
-      @contribution.update(mango_pay_id: card_web['Id'])
-      Success(input.merge(redirect: card_web['RedirectURL']))
+      transaction = CreateCardContribution.new.call(contribution: @contribution, project_id: input[:project_id], user: input[:user])
+      if transaction.success?
+        Success(input.merge(redirect: transaction.success[:redirect]))
+      else
+        flash[:error] = transaction.failure[:error]
+        Failure(input.merge(redirect: project_path(transaction.failure[:project])))
+      end
     end
   end
 end

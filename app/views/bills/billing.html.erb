@@ -1,7 +1,7 @@
 <div class="container">
   <div class="infos">
     <div class="" style="border:1px solid;margin-top: 100px;padding: 30px">
-      <h1><%= @bill.name %> from MANGOPAY</h1>
+      <h1>MANGOPAY</h1>
       <span><%= @date %></span>
       <div class="d-flex justify-content-between">
         <div class="">
@@ -15,7 +15,17 @@
         </div>
       </div>
       <h5>TOTAL: <%= @amount + @fees %> <%= @currency %></h5>
-      <%= link_to 'Download', bill_path(@bill.id, format: :pdf), download: "" %>
+      <%= link_to 'Download', billing_path(
+        contribution_id: @contribution.id,
+        amount: @amount,
+        fees: @fees,
+        ref: @ref,
+        bic: @bic,
+        iban: @iban,
+        currency: @currency,
+        content: params[:content].permit!,
+        format: :pdf,
+      ), download: "" %>
     </div>
   </div>
 </div>

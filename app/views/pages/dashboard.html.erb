@@ -6,7 +6,6 @@
   <div class="d-flex" style="margin-left:100px;">
     <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="projectShow()">Projects</a></div>
     <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="contributionsShow()">Contributions</a></div>
-    <div id="" class="btn-dashboard"><a class="btn btn-light btn-toggle" onclick="billsShow()">Bills</a></div>
     <div class="btn-dashboard">
       <%= link_to "My account",edit_user_registration_path, class: "btn btn-light btn-account" %>
     </div>
@@ -15,25 +14,6 @@
 <div id="pousseur" class="bill-board">
   <div class="container">
     <p style="margin:40px;font-size: 20px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere beatae eaque, quam dolore ratione ea nemo earum ipsum, aspernatur atque cumque assumenda odit laboriosam culpa corporis mollitia obcaecati vel labore Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit suscipit laudantium distinctio dicta repellat, blanditiis quia consectetur quidem nulla exercitationem rerum ipsa, tenetur repudiandae maxime, recusandae beatae. Provident, ullam nostrum? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere beatae eaque, quam dolore ratione ea nemo earum ipsum, aspernatur atque cumque assumenda odit laboriosam culpa corporis mollitia obcaecati vel labore Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit suscipit laudantium distinctio dicta repellat, blanditiis quia consectetur quidem nulla exercitationem rerum ipsa, tenetur repudiandae maxime, recusandae beatae. Provident, ullam nostrum?</p>
-  </div>
-</div>
-<div id="bills" class="d-none">
-  <div class="container">
-    <h4 style="margin:60px; color:#D53855;">My bills -<em style="font-size: 20px"> bankwires payments</em></h4>
-    <% @bills.each do |bill| %>
-      <div class="card-trip" style="padding: 15px;width: 50%">
-        <div class="d-flex justify-content-between">
-          <div class="">
-            <div><%= bill.name %></div>
-            <div><%= bill.amount_in_cents.fdiv(100).round %>€</div>
-            <div><%= link_to 'Details', bill_path(bill) %></div>
-          </div>
-          <div class="">
-            <span class="<%= bill.contribution.state_badge %>"><%= bill.contribution.aasm_state %></span>
-          </div>
-        </div>
-      </div>
-    <% end %>
   </div>
 </div>
 <div id="container-dashboard" class="container d-none">
@@ -94,26 +74,18 @@
   </div>
 </div>
 <script>
-  let bills = document.getElementById('bills');
   let pousseur = document.getElementById('pousseur');
   let container = document.getElementById('container-dashboard');
   let projects = document.getElementById('projects');
   let contributions = document.getElementById('contributions');
-  const billsShow = () =>{
-    pousseur.classList.add('d-none');
-    projects.classList.add('d-none');
-    contributions.classList.add('d-none');
-    bills.classList.remove('d-none');
-  }
+
   const contributionsShow = () => {
-    bills.classList.add('d-none');
     pousseur.classList.add('d-none');
     projects.classList.add('d-none');
     contributions.classList.remove('d-none');
     container.classList.remove('d-none');
   }
   const projectShow = () => {
-    bills.classList.add('d-none');
     pousseur.classList.add('d-none');
     contributions.classList.add('d-none');
     projects.classList.remove('d-none');

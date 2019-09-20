@@ -49,7 +49,7 @@ class CreateBankwireContribution < Transaction
     else
       @contribution.update(aasm_state: 'payment_pending')
       @contribution.update(mango_pay_id: bankwire['Id'])
-      Success(input.merge(content: bankwire))
+      Success(input.merge(redirect: Rails.application.routes.url_helpers.billing_path(content: bankwire.to_enum.to_h, contribution_id: @contribution.id)))
     end
   end
 end

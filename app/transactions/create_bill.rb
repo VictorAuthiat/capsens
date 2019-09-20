@@ -1,32 +1,26 @@
 class CreateBill < Transaction
-  tee :init_bill
-  step :validate
-  tee :create
+  step :init_bill
 
   private
 
   def init_bill(input)
-    @bill = input[:bill]
-    @contribution = input[:contribution]
-    @user = @contribution.user
-    @project = @contribution.project
-    @bill.user = @user
-    @bill.project = @project
-    @bill.contribution = @contribution
-    @bill.content = input[:content]
-    @bill.name = 'Bill n°' + (@user.bills.count + 1).to_s + "#{@user.first_name}"
-    @bill.amount_in_cents = @contribution.amount_in_cents
-  end
-
-  def validate(input)
-    if @bill.valid?
-      Success(input)
-    else
-      Failure(input.merge(error: "Can't create bill!"))
-    end
-  end
-
-  def create(_input)
-    @bill.save
+    @content = input[:content]
+    @amount = @content['DeclaredDebitedFunds']['Amount'].to_i.fdiv(100).round
+    @fees = @content['DeclaredFees']['Amount'].to_i
+    @currency = @content['DeclaredDebitedFunds']['Currency']
+    @bic = @content['BankAccount']['BIC']
+    @iban = @content['BankAccount']['IBAN']
+    @ref = @content['WireReference']
+    @date = DateTime.strptime((@content['CreationDate']).to_s,'%s').strftime("%A, %-d %B %y:%d")
+    Success(input.merge(
+              amount: @amount,
+              fees: @fees,
+              currency: @currency,
+              bic:  @bic,
+              iban: @iban,
+              ref: @ref,
+              date: @date,
+              content: @content
+            ))
   end
 end
