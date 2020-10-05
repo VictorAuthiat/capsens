@@ -34,7 +34,7 @@ gem 'dry-monads'
 # Active Admin
 gem 'activeadmin'
 # Shrine/pictures
-gem 'shrine', '~> 2.0'
+gem 'shrine', '~> 3.3'
 gem 'aasm'
 gem 'mangopay'
 gem 'ransack'
